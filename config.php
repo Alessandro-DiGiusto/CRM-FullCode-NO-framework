@@ -1,14 +1,14 @@
-<?php
+<?php 
 
 $server = "localhost";
 $user = "root";
 $pass = "";
-$database = "login_register_DB"; /* REMEMBER */
+$database = "login_register_DB";    /* <------- NOME DEL MIO DATABASE SU MYSQL */
 
 $conn = mysqli_connect($server, $user, $pass, $database);
 
 if (!$conn) {
-    die("<script>alert('Connection Failed.')</script>");
+    die("<script>alert('Connessione Fallita.')</script>");
 }
 
 ?>

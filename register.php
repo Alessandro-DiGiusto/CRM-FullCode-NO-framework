@@ -24,20 +24,20 @@ if (isset($_POST['submit'])) {
 					VALUES ('$username', '$email', '$password')";
 			$result = mysqli_query($conn, $sql);
 			if ($result) {
-				echo "<script>alert('Wow! User Registration Completed.')</script>";
+				echo "<script>alert('Registrazione avvenuta con successo.')</script>";
 				$username = "";
 				$email = "";
 				$_POST['password'] = "";
 				$_POST['cpassword'] = "";
 			} else {
-				echo "<script>alert('Woops! Something Wrong Went.')</script>";
+				echo "<script>alert('Qualcosa e' andato storto.')</script>";
 			}
 		} else {
-			echo "<script>alert('Woops! Email Already Exists.')</script>";
+			echo "<script>alert('Email gia' esistente! prova ad accedere.')</script>";
 		}
 		
 	} else {
-		echo "<script>alert('Password Not Matched.')</script>";
+		echo "<script>alert('Le password inserite non coincidono.')</script>";
 	}
 }
 
@@ -53,12 +53,12 @@ if (isset($_POST['submit'])) {
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<title>Register Form - Pure Coding</title>
+	<title>Register JLAB</title>
 </head>
 <body>
 	<div class="container">
 		<form action="" method="POST" class="login-email">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Register</p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Register JLAB</p>
 			<div class="input-group">
 				<input type="text" placeholder="Username" name="username" value="<?php echo $username; ?>" required>
 			</div>
