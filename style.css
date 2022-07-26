@@ -23,7 +23,7 @@ body {
     min-height: 400px;
     background: #FFF;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0,.3);
+    box-shadow: 0 0 5px rgba(0,0,0,.3);
     padding: 40px 30px;
 }
 
@@ -37,11 +37,17 @@ body {
     text-transform: capitalize;
 }
 
+.container .login-social {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    margin-bottom: 25px;
+}
+
 .container .login-social a {
     padding: 12px;
     margin: 10px;
     border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 5px rgba(0,0,0,.3);
     text-decoration: none;
     font-size: 1rem;
     text-align: center;
@@ -137,18 +143,21 @@ body {
     color: #6c5ce7;
 }
 
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 @media (max-width: 430px) {
     .container {
         width: 300px;
     }
-
     .container .login-social {
         display: block;
     }
-
     .container .login-social a {
         display: block;
     }
-} 
-/* maybe finisced here, just commit */
-/* credo di aver finito, faccio un commit */
+}
