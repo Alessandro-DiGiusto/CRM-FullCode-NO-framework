@@ -20,6 +20,7 @@ if (isset($_POST['submit'])) {
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
 		$_SESSION['username'] = $row['username'];
+		$_SESSION['userID'] = $row['id'];
 		header("Location: welcome.php");
 	} else {
 		echo "<script>alert('Email o Password non risulta corretta.')</script>";

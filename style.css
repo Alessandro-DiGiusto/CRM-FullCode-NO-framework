@@ -7,6 +7,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.header-welcome {
+    margin-right: 50px;
+}
+
 body {
     width: 100%;
     min-height: 100vh;
@@ -150,6 +154,10 @@ body {
     margin-top: 0%;
     width: 70%;
     align-content: center;
+}
+
+.header-welcome {
+    color: #e7e7e7;
 }
 
 @media (max-width: 430px) {

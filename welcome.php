@@ -1,9 +1,37 @@
 <?php 
 
+include 'config.php';
+
+error_reporting(0);
+
 session_start();
 
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
+}
+
+/* -------------------------------------- */
+
+if (isset($_POST['submit'])) {
+	$rSociale = $_POST['rSociale'];
+	$iban = $_POST['iban'];
+	$email = $_POST['email'];
+	$cellulare = $_POST['cellulare'];
+	$IDagente = $_POST['id'];
+    
+
+			$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, FK_id_users)
+					VALUES ('$rSociale', '$iban', '$email', '$cellulare', '$IDagente')";
+			$result = mysqli_query($conn, $sql);
+			if ($result) {
+				echo "<script>alert('Contratto caricato correttamente.')</script>";
+                $_POST['rSociale'] = "";
+                $_POST['iban'] = "";
+				$_POST['email'] = "";
+				$_POST['cellulare'] = "";
+			} else {
+				echo "<script>alert('Qualcosa e' andato storto.')</script>";
+            }
 }
 
 ?>
@@ -21,9 +49,12 @@ if (!isset($_SESSION['username'])) {
     <title>JLAB Office</title>
 </head>
 <body>
-    <?php echo "<h1>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
-    <a href="logout.php">Logout</a>
+    <div class="header-welcome">
+        <?php echo "<h1>Ciao " . $_SESSION['username'] . " ! </h1>"; ?>
 
+			<a class="login-email" href="logout.php">ESCI</a>
+
+    </div>
     <div class="container">
 		<form action="" method="POST" class="login-email">
 
@@ -31,19 +62,23 @@ if (!isset($_SESSION['username'])) {
 
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Office</p>
 			<div class="input-group">
-				<input type="text" placeholder="Ragione Sociale" name="username" value="<?php echo $username; ?>" required>
+				<input type="text" placeholder="Ragione Sociale" name="rSociale" value="<?php echo $rSociale; ?>" required>
 			</div>
 			<div class="input-group">
-				<input type="email" placeholder="IBAN" name="email" value="<?php echo $email; ?>" required>
+				<input type="text" placeholder="IBAN" name="iban" value="<?php echo $iban; ?>" required>
 			</div>
 			<div class="input-group">
-				<input type="password" placeholder="Email" name="password" value="<?php echo $_POST['password']; ?>" required>
+				<input type="text" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
             </div>
             <div class="input-group">
-				<input type="password" placeholder="Cellulare" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" required>
+				<input type="text" placeholder="Cellulare" name="cellulare" value="<?php echo $_POST['cellulare']; ?>" required>
 			</div>
+			<input type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>">
 			<div class="input-group">
 				<button name="submit" class="btn">Carica</button>
+			</div>
+            <div class="input-group">
+                <input type="reset" value="Svuota">
 			</div>
 		</form>
 	</div>
