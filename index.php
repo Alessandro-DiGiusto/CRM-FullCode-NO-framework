@@ -45,15 +45,9 @@ if (isset($_POST['submit'])) {
 		<form action="" method="POST" class="login-email">
 
 <!-- 			<img src="jlab-logo-alpha.png" width="100" height="40"> -->			
-			<center>
-			<img src="jlab-logo-alpha.png" id="logo"
-			display="block"
-    		margin-left="auto"
-    		margin-right="auto"  
-			margin-top="0%"
-    		width="100%"
-			>
-			</center>
+
+			<img src="jlab-logo-alpha.png" class="logo-jlab">
+
 
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">OFFICE</p>
 
