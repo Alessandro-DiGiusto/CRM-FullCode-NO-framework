@@ -20,12 +20,14 @@ if (isset($_POST['submit'])) {
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
 		$_SESSION['username'] = $row['username'];
-		header("Location: welcome.php");
+		$_SESSION['userID'] = $row['id'];          //--- $_SESSION['nome.A.piacere'] = $row['id'] (id è il nome effettivo della colonna del db)
+
+		header("Location: contratti.php");
 	} else {
 		echo "<script>alert('Email o Password non risulta corretta.')</script>";
 	}
 }
-
+	var_dump($_SESSION['userID']);
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +57,7 @@ if (isset($_POST['submit'])) {
 			<div class="input-group">
 				<input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
 			</div>
+
 			<div class="input-group">
 				<input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
 			</div>
