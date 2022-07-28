@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `login_register_DB`
+-- Database: `login_register_pure_coding`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(1, 'Alessandro', 'ale@gmail.com', '123');
+(1, 'ale', 'ale@gmail.com', '123');
 
 --
 -- Indexes for dumped tables
