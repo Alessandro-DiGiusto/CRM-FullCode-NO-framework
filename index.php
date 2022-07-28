@@ -20,14 +20,22 @@ if (isset($_POST['submit'])) {
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
 		$_SESSION['username'] = $row['username'];
+<<<<<<< HEAD
 		$_SESSION['userID'] = $row['id'];          //--- $_SESSION['nome.A.piacere'] = $row['id'] (id è il nome effettivo della colonna del db)
 
 		header("Location: contratti.php");
+=======
+		header("Location: welcome.php");
+>>>>>>> main
 	} else {
 		echo "<script>alert('Email o Password non risulta corretta.')</script>";
 	}
 }
+<<<<<<< HEAD
 	var_dump($_SESSION['userID']);
+=======
+
+>>>>>>> main
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +55,21 @@ if (isset($_POST['submit'])) {
 		<form action="" method="POST" class="login-email">
 
 <!-- 			<img src="jlab-logo-alpha.png" width="100" height="40"> -->			
+<<<<<<< HEAD
 
 			<img src="jlab-logo-alpha.png" class="logo-jlab">
 
+=======
+			<center>
+			<img src="jlab-logo-alpha.png" id="logo"
+			display="block"
+    		margin-left="auto"
+    		margin-right="auto"  
+			margin-top="0%"
+    		width="100%"
+			>
+			</center>
+>>>>>>> main
 
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">OFFICE</p>
 
@@ -57,7 +77,10 @@ if (isset($_POST['submit'])) {
 			<div class="input-group">
 				<input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
 			</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 			<div class="input-group">
 				<input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
 			</div>

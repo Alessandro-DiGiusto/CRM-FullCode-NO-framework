@@ -143,6 +143,7 @@ body {
     color: #6c5ce7;
 }
 
+<<<<<<< HEAD
 .logo-jlab {
     display: block;
     margin-left: auto;
@@ -285,6 +286,13 @@ body {
 .th-space {
     margin-right: 10px;
 
+=======
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+>>>>>>> main
 }
 
 @media (max-width: 430px) {

@@ -53,15 +53,23 @@ if (isset($_POST['submit'])) {
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
+<<<<<<< HEAD
 	<title>Registrazione JLAB</title>
+=======
+	<title>Register JLAB</title>
+>>>>>>> main
 </head>
 <body>
 	<div class="container">
 		<form action="" method="POST" class="login-email">
+<<<<<<< HEAD
 
 			<img src="jlab-logo-alpha.png" class="logo-jlab">
 
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Registrazione</p>
+=======
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Register JLAB</p>
+>>>>>>> main
 			<div class="input-group">
 				<input type="text" placeholder="Username" name="username" value="<?php echo $username; ?>" required>
 			</div>
@@ -72,12 +80,21 @@ if (isset($_POST['submit'])) {
 				<input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
             </div>
             <div class="input-group">
+<<<<<<< HEAD
 				<input type="password" placeholder="Conferma Password" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" required>
 			</div>
 			<div class="input-group">
 				<button name="submit" class="btn">Registrati</button>
 			</div>
 			<p class="login-register-text">Sei già un nostro agente? <a href="index.php"> Accedi</a>.</p>
+=======
+				<input type="password" placeholder="Confirm Password" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" required>
+			</div>
+			<div class="input-group">
+				<button name="submit" class="btn">Register</button>
+			</div>
+			<p class="login-register-text">Have an account? <a href="index.php">Login Here</a>.</p>
+>>>>>>> main
 		</form>
 	</div>
 </body>
