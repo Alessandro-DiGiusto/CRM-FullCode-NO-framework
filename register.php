@@ -10,6 +10,10 @@ if (isset($_SESSION['username'])) {
     header("Location: index.php");
 }
 
+
+
+
+
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
 	$email = $_POST['email'];
@@ -65,6 +69,7 @@ if (isset($_POST['submit'])) {
 			<div class="input-group">
 				<input type="text" placeholder="Username" name="username" value="<?php echo $username; ?>" required>
 			</div>
+
 			<div class="input-group">
 				<input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
 			</div>

@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
                 <th>Email</th>
             </tr>
             <tr>
-                <td class="td-space">Pizzeria Gustosa S.r.l.s</td>
+                <td class="td-space">Pizzeria gustosa S.r.l.s</td>
                 <td>IT7685CC3486985</td>
                 <td>pizza@gustosa.com</td>
             </tr>

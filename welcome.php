@@ -51,7 +51,10 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <div class="header-welcome">
-        <?php echo "<h1>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
+        <?php 
+			$asd = $_SESSION['username'];
+			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
+		?>
 
 		<div class="css-selector">
 			<a href="contratti.php" class="white-font">Lista contratti</a>
@@ -84,10 +87,10 @@ if (isset($_POST['submit'])) {
 				<input type="text" placeholder="IBAN" name="iban" value="<?php echo $_POST['iban']; ?>" required>
 			</div>
 			<div class="input-group">
-				<input type="text" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
+				<input type="email" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
             </div>
             <div class="input-group">
-				<input type="text" placeholder="Cellulare" name="cellulare" value="<?php echo $_POST['cellulare']; ?>" required>
+				<input type="tel" placeholder="Cellulare" name="cellulare" value="<?php echo $_POST['cellulare']; ?>" required>
 			</div>
 
 <!-- 			<div class="input-group">
