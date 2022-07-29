@@ -53,8 +53,8 @@ body {
 }
 
 .welcome_btn {
-    display: flex;
-    justify-content: left;
+    display: inline-flex;
+   /*  justify-content: center; */
 
 }
 
@@ -100,7 +100,8 @@ body {
 }
 
 .css-selector_INVERSO {
-    display: block;
+    display: flex;
+    justify-content: center;
     width: 100%;
     padding: 15px 20px;
     text-align: center;
@@ -113,6 +114,8 @@ body {
     cursor: pointer;
     transition: .3s;
     margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     text-decoration: none;
     
     background: linear-gradient(89deg, #6c5ce7, #20d7a8);

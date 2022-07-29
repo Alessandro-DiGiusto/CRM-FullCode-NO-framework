@@ -49,7 +49,6 @@ if (isset($_POST['submit'])) {
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-
     <title>JLAB Office</title>
 </head>
 <body>
@@ -61,16 +60,17 @@ if (isset($_POST['submit'])) {
             </div>
 
 
-            <div class="welcome-btn">
+            <div class="welcome_btn">
                 <div class="css-selector_INVERSO">
                 <a href="welcome.php" class="white-font">Carica</a>
                 </div>
+            
+
+                <div class="css-selector_Logout">
+                <a href="logout.php" class="white-font">Logout</a>
+                </div>
             </div>
 
-            <div class="css-selector_Logout">
-            <a href="logout.php" class="white-font">Logout</a>
-            </div>
-            </div>
         </div>
     </div>
 
@@ -80,47 +80,46 @@ if (isset($_POST['submit'])) {
 
         <table class="w3-table-all">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th class="w3-center">Points</th>
+                <th>Ragione Sociale</th>
+                <th>IBAN</th>
+                <th>Email</th>
+                <th>Cellulare</th>
+                <th>Stipula</th>
+                <th>Data Inserimento</th>
+                <th class="w3-center">Stato</th>
             </tr>
             <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td class="w3-center">50</td>
+                <td>Pizzeria CampoBasso S.r.l</td>
+                <td>IT009876253456776</td>
+                <td>pizza@gmail.com</td>
+                <td>3495268756</td>
+                <td>13/03/22</td>
+                <td>14/03/22</td>
+                <td class="w3-center">INSERITO</td>
             </tr>
             <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td class="w3-center">94</td>
+                <td>MC Donald's C.C Etnapolis S.p.A</td>
+                <td>IT23474566776</td>
+                <td>mcdonalds@mc.com</td>
+                <td>3477823600</td>
+                <td>15/03/22</td>
+                <td>17/03/22</td>
+                <td class="w3-center">APPROVATO</td>
             </tr>
             <tr>
-                <td>Adam</td>
-                <td>Johnson</td>
-                <td class="w3-center">67</td>
+                <td>Rossopomodoro S.r.l</td>
+                <td>IT11187625340000</td>
+                <td>info@rossopomodoro.it</td>
+                <td>3495268756</td>
+                <td>18/03/22</td>
+                <td>19/03/22</td>
+                <td class="w3-center">LAVORAZIONE</td>
             </tr>
         </table>
 
     <div class="container_main">
         <div class="container-lista">
-            <h1>I tuoi inseriti</h1>
-            <table>
-                <tr>
-                    <th class="th-space">Ragione Sociale</th>
-                    <th>Iban</th>
-                    <th>Email</th>
-                </tr>
-                <tr>
-                    <td class="td-space">Pizzeria ok S.r.l.s</td>
-                    <td>IT7685CC3486985</td>
-                    <td>pizza@gustosa.com</td>
-                </tr>
-                <tr>
-                    <td>C.C. Etnapolis S.p.A</td>
-                    <td>IT998711111CC8575K12</td>
-                    <td>info@etnapolis.it</td>
-                </tr>
-            </table>
+        <canvas id="oilChart" width="600" height="400"></canvas>
         </div>
     </div>
 
