@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
 
 		header("Location: contratti.php");
 	} else {
-		echo "<script>alert('Email o Password non risulta corretta.')</script>";
+		echo "<script>alert('Email o Password errate.')</script>";
 	}
 }
 	var_dump($_SESSION['userID']);
@@ -46,16 +46,12 @@ if (isset($_POST['submit'])) {
 	<div class="container">
 		<form action="" method="POST" class="login-email">
 
-<!-- 			<img src="jlab-logo-alpha.png" width="100" height="40"> -->			
-
 			<img src="jlab-logo-alpha.png" class="logo-jlab">
-
 
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">OFFICE</p>
 
-
 			<div class="input-group">
-				<input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
+				<input type="email" placeholder="Email" name="email" value="<?php echo $_POST['email']; ?>" required>
 			</div>
 
 			<div class="input-group">

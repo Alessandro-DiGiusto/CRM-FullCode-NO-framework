@@ -45,49 +45,85 @@ if (isset($_POST['submit'])) {
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="contratti.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
     <title>JLAB Office</title>
 </head>
 <body>
+
     <div class="header-welcome">
-        <?php echo "<h1>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
+        <div class="header-welcome-cose">
+            <div class="titolo">
+            <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
+            </div>
 
-<!-- 		<div class="css-selector">
-			<a href="#" class="white-font">Lista contratti</a>
-		</div> -->
 
-		<div class="css-selector_INVERSO">
-			<a href="welcome.php" class="white-font">Carica</a>
-		</div>
+            <div class="welcome-btn">
+                <div class="css-selector_INVERSO">
+                <a href="welcome.php" class="white-font">Carica</a>
+                </div>
+            </div>
 
-		<div class="css-selector_Logout">
-			<a href="logout.php" class="white-font">Logout</a>
-		</div>
-        
+            <div class="css-selector_Logout">
+            <a href="logout.php" class="white-font">Logout</a>
+            </div>
+            </div>
+        </div>
     </div>
 
+    <h2 id=h2-titolo>I Tuoi Inseriti</h2>
+    <div class="w3-container">
+    
 
-    <div class="container-lista">
-        <h1>I tuoi inseriti</h1>
-        <table>
+        <table class="w3-table-all">
             <tr>
-                <th class="th-space">Ragione Sociale</th>
-                <th>Iban</th>
-                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th class="w3-center">Points</th>
             </tr>
             <tr>
-                <td class="td-space">Pizzeria gustosa S.r.l.s</td>
-                <td>IT7685CC3486985</td>
-                <td>pizza@gustosa.com</td>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td class="w3-center">50</td>
             </tr>
             <tr>
-                <td>C.C. Etnapolis S.p.A</td>
-                <td>IT998711111CC8575K12</td>
-                <td>info@etnapolis.it</td>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td class="w3-center">94</td>
+            </tr>
+            <tr>
+                <td>Adam</td>
+                <td>Johnson</td>
+                <td class="w3-center">67</td>
             </tr>
         </table>
-	</div>
+
+    <div class="container_main">
+        <div class="container-lista">
+            <h1>I tuoi inseriti</h1>
+            <table>
+                <tr>
+                    <th class="th-space">Ragione Sociale</th>
+                    <th>Iban</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td class="td-space">Pizzeria ok S.r.l.s</td>
+                    <td>IT7685CC3486985</td>
+                    <td>pizza@gustosa.com</td>
+                </tr>
+                <tr>
+                    <td>C.C. Etnapolis S.p.A</td>
+                    <td>IT998711111CC8575K12</td>
+                    <td>info@etnapolis.it</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 
 
 </body>

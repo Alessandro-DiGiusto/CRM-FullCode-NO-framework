@@ -20,12 +20,15 @@ if (isset($_POST['submit'])) {
 	$password = md5($_POST['password']);
 	$cpassword = md5($_POST['cpassword']);
 
+/* 	set first uppercase fist letter on username left send on database*/
+	$username_uc = ucwords($username);
+
 	if ($password == $cpassword) {
 		$sql = "SELECT * FROM users WHERE email='$email'";
 		$result = mysqli_query($conn, $sql);
 		if (!$result->num_rows > 0) {
 			$sql = "INSERT INTO users (username, email, password)
-					VALUES ('$username', '$email', '$password')";
+					VALUES ('$username_uc', '$email', '$password')";
 			$result = mysqli_query($conn, $sql);
 			if ($result) {
 				echo "<script>alert('Registrazione avvenuta con successo.')</script>";

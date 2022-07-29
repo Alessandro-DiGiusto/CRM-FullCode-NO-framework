@@ -1,10 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    margin: 0;
+    margin: 0px;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+#h1-titolo {
+    display: flex;
+    justify-content: center;
+    color: #e7e7e7;
+/*     margin: 1rem 1rem 0px 1rem; */
+    font-family: 'Poppins'sans-serif;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+#h2-titolo {
+    display: flex;
+    justify-content: left;
+    color: #e7e7e7;
+    margin-top: 3rem;
+    margin-left: 0.9rem;
+    font-family: 'Poppins'sans-serif;
+    font-weight: bold;
 }
 
 body {
@@ -13,134 +33,36 @@ body {
     background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(bg.jpg);
     background-position: center;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.container {
+/* .container {
     width: 400px;
     min-height: 400px;
     background: #FFF;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,.3);
     padding: 40px 30px;
-}
+} */
 
-.container .login-text {
-    color: #111;
-    font-weight: 500;
-    font-size: 1.1rem;
-    text-align: center;
-    margin-bottom: 20px;
+.header-welcome {          /*   parte ciao */
+    margin: 0.3rem 0.3rem 0rem 0.3rem;
+    color: #e7e7e7;
     display: block;
-    text-transform: capitalize;
+    justify-content: center;
+    align-items: center;
 }
 
-.container .login-social {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
-    margin-bottom: 25px;
+.welcome_btn {
+    display: flex;
+    justify-content: left;
+
 }
 
-.container .login-social a {
-    padding: 12px;
-    margin: 10px;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
-    text-decoration: none;
-    font-size: 1rem;
-    text-align: center;
-    color: #FFF;
-    transition: .3s;
-}
-
-.container .login-social a i {
-    margin-right: 5px;
-}
-
-.container .login-social a.facebook {
-    background: #4267B2;
-}
-
-.container .login-social a.twitter {
-    background: #1DA1F2;
-}
-
-.container .login-social a.google-plus {
-    background: #db4a39;
-}
-
-.container .login-social a.linkedin {
-    background: #0e76a8;
-}
-
-.container .login-social a.facebook:hover {
-    background: #3d5fa3;
-}
-
-.container .login-social a.twitter:hover {
-    background: #1991db;
-}
-
-.container .login-social a.google-plus:hover {
-    background: #ca4334;
-}
-
-.container .login-social a.linkedin:hover {
-    background: #0b5c81;
-}
-
-.container .login-email .input-group {
-    width: 100%;
-    height: 50px;
-    margin-bottom: 25px;
-}
-
-.container .login-email .input-group input {
-    width: 100%;
-    height: 100%;
-    border: 2px solid #e7e7e7;
-    padding: 15px 20px;
-    font-size: 1rem;
-    border-radius: 30px;
-    background: transparent;
-    outline: none;
-    transition: .3s;
-}
-
-.container .login-email .input-group input:focus, .container .login-email .input-group input:valid {
-    border-color: #a29bfe;
-}
-
-.container .login-email .input-group .btn {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    text-align: center;
-    border: none;
-    background: #a29bfe;
-    outline: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    color: #FFF;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.container .login-email .input-group .btn:hover {
-    transform: translateY(-5px);
-    background: #6c5ce7;
-}
-
-.login-register-text {
-    color: #111;
-    font-weight: 600;
-}
-
-.login-register-text a {
-    text-decoration: none;
-    color: #6c5ce7;
+.container_main {                /* i tuoi inseriti */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
 
 .logo-jlab {
@@ -152,30 +74,6 @@ body {
     align-content: center;
 }
 
-.header-welcome {
-    margin-right: 2rem;
-    color: #e7e7e7;
-    display: block;
-    justify-content: left;
-    align-items:flex-start;
-}
-
-.welcome_btn a {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    text-align: center;
-    border: none;
-    background: #6c5ce7;
-    outline: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    color: #FFF;
-    cursor: pointer;
-    transition: .3s;
-    margin-top: 1rem;
-    text-decoration: none;
-}
 
 .css-selector {
     display: block;

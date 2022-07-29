@@ -19,10 +19,11 @@ if (isset($_POST['submit'])) {
 	$cellulare = ($_POST['cellulare']);
 	$agente = ($_SESSION['userID']);
 
-    
+	/* 	Set first uppercase on fist letter, on username left send on database*/
+	$rSociale_uc = ucwords($rSociale);
 
 			$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, FK_id_users)
-					VALUES ('$rSociale', '$iban', '$email', '$cellulare', '$agente')";
+					VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$agente')";
 			$result = mysqli_query($conn, $sql);
 			if ($result) {
 				echo "<script>alert('Contratto caricato correttamente.')</script>";
