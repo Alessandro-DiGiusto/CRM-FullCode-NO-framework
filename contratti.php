@@ -12,29 +12,6 @@ if (!isset($_SESSION['username'])) {
 
 /* -------------------------------------- */
 
-if (isset($_POST['submit'])) {
-	$rSociale = $_POST['rSociale'];
-	$iban = $_POST['iban'];
-	$email = ($_POST['email']);
-	$cellulare = ($_POST['cellulare']);
-	$agente = ($_SESSION['userID']);
-
-    
-
-			$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, FK_id_users)
-					VALUES ('$rSociale', '$iban', '$email', '$cellulare', '$agente')";
-			$result = mysqli_query($conn, $sql);
-			if ($result) {
-				echo "<script>alert('Contratto caricato correttamente.')</script>";
-                $_POST['rSociale'] = "";
-                $_POST['iban'] = "";
-				$_POST['email'] = "";
-				$_POST['cellulare'] = "";
-			} else {
-				echo "<script>alert('Qualcosa e' andato storto.')</script>";
-            }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +38,12 @@ if (isset($_POST['submit'])) {
 
 
             <div class="welcome_btn">
-                <div class="css-selector_INVERSO">
+                <div class="css-selector">
                 <a href="welcome.php" class="white-font">Carica</a>
+                </div>
+
+                <div class="css-selector_INVERSO">
+                <a href="contratti2.php" class="white-font">lista 2</a>
                 </div>
             
 
@@ -88,6 +69,7 @@ if (isset($_POST['submit'])) {
                 <th>Data Inserimento</th>
                 <th class="w3-center">Stato</th>
             </tr>
+
             <tr>
                 <td>Pizzeria CampoBasso S.r.l</td>
                 <td>IT009876253456776</td>
@@ -97,6 +79,19 @@ if (isset($_POST['submit'])) {
                 <td>14/03/22</td>
                 <td class="w3-center">INSERITO</td>
             </tr>
+
+                echo "            
+                <tr>
+                    <td>Q Pizzeria CampoBasso S.r.l</td>
+                    <td>QIT009876253456776</td>
+                    <td>Qpizza@gmail.com</td>
+                    <td>Q3495268756</td>
+                    <td>Q13/03/22</td>
+                    <td>Q14/03/22</td>
+                    <td class="w3-center">QINSERITO</td>
+                </tr>
+                "
+            
             <tr>
                 <td>MC Donald's C.C Etnapolis S.p.A</td>
                 <td>IT23474566776</td>
@@ -107,7 +102,7 @@ if (isset($_POST['submit'])) {
                 <td class="w3-center">APPROVATO</td>
             </tr>
             <tr>
-                <td>Rossopomodoro S.r.l</td>
+                <td>--> Rossopomodoro S.r.l</td>
                 <td>IT11187625340000</td>
                 <td>info@rossopomodoro.it</td>
                 <td>3495268756</td>
@@ -115,13 +110,14 @@ if (isset($_POST['submit'])) {
                 <td>19/03/22</td>
                 <td class="w3-center">LAVORAZIONE</td>
             </tr>
+            
         </table>
 
-    <div class="container_main">
+<!--     <div class="container_main">
         <div class="container-lista">
         <canvas id="oilChart" width="600" height="400"></canvas>
         </div>
-    </div>
+    </div> -->
 
 
 
