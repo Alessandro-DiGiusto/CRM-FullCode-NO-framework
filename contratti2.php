@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include 'config.php';
 
@@ -10,8 +10,18 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
 
-/* -------------------------------------- */
+$idSessione = $_SESSION['userID'];
 
+     $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
+                    FROM contratti
+                    WHERE contratti.FK_id_users = '$idSessione'; ";
+                    
+            $result_select = mysqli_query($conn, $select);
+
+            // per stampare eventuali errori
+            if (!$result_select) {
+                echo "Errore query della select" . mysqli_error($conn);
+            }
 ?>
 
 <!DOCTYPE html>
@@ -36,30 +46,20 @@ if (!isset($_SESSION['username'])) {
             <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
             </div>
 
-
             <div class="welcome_btn">
-                <div class="css-selector">
+                <div class="css-selector_INVERSO">
                 <a href="welcome.php" class="white-font">Carica</a>
                 </div>
-
-                <div class="css-selector_INVERSO">
-                <a href="contratti2.php" class="white-font">lista 2</a>
-                </div>
-            
 
                 <div class="css-selector_Logout">
                 <a href="logout.php" class="white-font">Logout</a>
                 </div>
             </div>
-
         </div>
     </div>
 
     <h2 id=h2-titolo>I Tuoi Inseriti</h2>
-    <div class="w3-container">
-    
-
-        <table class="w3-table-all">
+    <table class="w3-table-all w3-center">
             <tr>
                 <th>Ragione Sociale</th>
                 <th>IBAN</th>
@@ -70,56 +70,45 @@ if (!isset($_SESSION['username'])) {
                 <th class="w3-center">Stato</th>
             </tr>
 
+    <?php
+
+            while ($row = mysqli_fetch_assoc($result_select)) {
+                        echo "<tr>" . "<td>" . $row['r_sociale'] ;
+                        echo "<td>" . $row['iban'];
+                        echo "<td>" . $row['email'];
+                        echo "<td>" . $row['tel'];
+                        echo "<td>" . $row['stipula'];
+                        echo "<td>" . $row['insert_date']; //data inserimento
+                        echo "<td><center>" . $row['stato'] . "</tr>";
+                    }
+
+
+    ?>
+
+
+
             <tr>
-                <td>Pizzeria CampoBasso S.r.l</td>
+                <td>Come dovrebbe venire S.r.l</td>
                 <td>IT009876253456776</td>
                 <td>pizza@gmail.com</td>
                 <td>3495268756</td>
                 <td>13/03/22</td>
                 <td>14/03/22</td>
                 <td class="w3-center">INSERITO</td>
-            </tr>
+            </tr>     
+        </table> 
+    
+        <input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>">
 
-                echo "            
-                <tr>
-                    <td>Q Pizzeria CampoBasso S.r.l</td>
-                    <td>QIT009876253456776</td>
-                    <td>Qpizza@gmail.com</td>
-                    <td>Q3495268756</td>
-                    <td>Q13/03/22</td>
-                    <td>Q14/03/22</td>
-                    <td class="w3-center">QINSERITO</td>
-                </tr>
-                "
-            
-            <tr>
-                <td>MC Donald's C.C Etnapolis S.p.A</td>
-                <td>IT23474566776</td>
-                <td>mcdonalds@mc.com</td>
-                <td>3477823600</td>
-                <td>15/03/22</td>
-                <td>17/03/22</td>
-                <td class="w3-center">APPROVATO</td>
-            </tr>
-            <tr>
-                <td>--> Rossopomodoro S.r.l</td>
-                <td>IT11187625340000</td>
-                <td>info@rossopomodoro.it</td>
-                <td>3495268756</td>
-                <td>18/03/22</td>
-                <td>19/03/22</td>
-                <td class="w3-center">LAVORAZIONE</td>
-            </tr>
-            
-        </table>
-
+<!-- ---------------------------------------------    AL MOMENTO QUESTO NON MI SERVE  -->
 <!--     <div class="container_main">
         <div class="container-lista">
         <canvas id="oilChart" width="600" height="400"></canvas>
         </div>
     </div> -->
-
-
-
 </body>
 </html>
+
+
+
+

@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 		$_SESSION['username'] = $row['username'];
 		$_SESSION['userID'] = $row['id'];          //--- $_SESSION['nome.A.piacere'] = $row['id'] (id è il nome effettivo della colonna del db)
 
-		header("Location: contratti.php");
+		header("Location: contratti2.php");
 	} else {
 		echo "<script>alert('Email o Password errate.')</script>";
 	}

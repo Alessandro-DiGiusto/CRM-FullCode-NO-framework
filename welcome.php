@@ -13,24 +13,34 @@ if (!isset($_SESSION['username'])) {
 /* -------------------------------------- */
 
 if (isset($_POST['submit'])) {
-	$rSociale = $_POST['rSociale'];
+	$rSociale = $_POST['r_sociale'];
 	$iban = $_POST['iban'];
 	$email = ($_POST['email']);
 	$cellulare = ($_POST['cellulare']);
+	$stipula = ($_POST['stipula']);
+	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
+	$dataInserimento = ($_POST['insert_date']);
+	$dataInserimentoUpdated = $dataInserimento;
+
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
 
-			$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, FK_id_users)
-					VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$agente')";
+			$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users)
+					VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$dataInserimentoUpdated', '$stato', '$agente')";
 			$result = mysqli_query($conn, $sql);
 			if ($result) {
 				echo "<script>alert('Contratto caricato correttamente.')</script>";
-                $_POST['rSociale'] = "";
-                $_POST['iban'] = "";
-				$_POST['email'] = "";
-				$_POST['cellulare'] = "";
+                $_POST['r_sociale'] = "";    	 $rSociale = "";
+                $_POST['iban'] = "";     		 $iban = "";
+				$_POST['email'] = "";   	     $email = "";
+				$_POST['tel'] = "";   	         $cellulare = "";
+				$_POST['stipula'] = "";   	     $stipula = "";
+				$_POST['insert_date'] = "";   	 $insert_date = "";
+				$_POST['stato'] = "";   	     $stato = "";
+				$dataInserimento = "";
+				$_POST['FK_id_users'] = "";   	 $agente = "";
 			} else {
 				echo "<script>alert('Qualcosa e' andato storto.')</script>";
             }
@@ -56,33 +66,26 @@ if (isset($_POST['submit'])) {
 			$asd = $_SESSION['username'];
 			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
 		?>
-
-		<div class="css-selector">
-			<a href="contratti.php" class="white-font">Lista contratti</a>
+		<div class="input-group">
+			<a href="contratti2.php" style="text-decoration: none;">
+			<button class="css-selector" class="white-font">Lista contratti</button>
+			</a>
 		</div>
-
-<!-- 		<div class="css-selector_INVERSO">
-			<a href="#" class="white-font">Inserisci</a>
-		</div> -->
-
-		<div class="css-selector_Logout">
-			<a href="logout.php" class="white-font">Logout</a>
+		<div class="input-group">
+			<a href="logout.php" style="text-decoration: none;">
+			<button class="css-selector_Logout" class="white-font">Esci</button>
+			</a>
 		</div>
-
     </div>
 
-<!-- 	<div class="container">
-			<h1>Caricati</h1>				meglio cancellarlo, era una prova
-	</div>
- -->
     <div class="container">
-		<form action="" method="POST" class="login-email">
+		<form action="" method="POST" class="login-email" id="formInserimento">
 
 			<img src="jlab-logo-alpha.png" class="logo-jlab">
 
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Carica</p>
 			<div class="input-group">
-				<input type="text" placeholder="Ragione Sociale" name="rSociale" value="<?php echo $_POST['rSociale']; ?>" required>
+				<input type="text" placeholder="Ragione Sociale" name="r_sociale" value="<?php echo $_POST['r_sociale']; ?>" required>
 			</div>
 			<div class="input-group">
 				<input type="text" placeholder="IBAN" name="iban" value="<?php echo $_POST['iban']; ?>" required>
@@ -91,30 +94,19 @@ if (isset($_POST['submit'])) {
 				<input type="email" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
             </div>
             <div class="input-group">
-				<input type="tel" placeholder="Cellulare" name="cellulare" value="<?php echo $_POST['cellulare']; ?>" required>
+				<input type="tel" placeholder="Cellulare" name="cellulare" value="<?php echo $_POST['tel']; ?>" required>
+			</div>
+			<div class="input-group">
+				Stipula
+				<input type="date" name="stipula" value="<?php echo $_POST['stipula']; ?>" required>
 			</div>
 
-<!-- 			<div class="input-group">
-				<input type="text" placeholder="5 valore" name="rSociale" value="<?php echo $rSociale; ?>" required>
-			</div>
-			<div class="input-group">
-				<input type="text" placeholder="6 valore" name="iban" value="<?php echo $iban; ?>" required>
-			</div>
-			<div class="input-group">
-				<input type="text" placeholder="7 valore" name="email" value="<?php echo $_POST['email']; ?>" required>
-            </div>
-            <div class="input-group">
-				<input type="text" placeholder="8 valore" name="cellulare" value="<?php echo $_POST['cellulare']; ?>" required>
-			</div> -->
+			<input  type="hidden" name="insert_date" value="<?php $d = new DateTime(); $dataInserimento = $d->format('d-m-Y \ H:i:s'); echo $dataInserimento; echo $_POST['insert_date']?>">
 
 			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
 
 			<div class="input-group">
-				<button name="submit" class="btn" onclick="reset">Carica</button>
-			</div>
-
-            <div class="input-group">
-                <input type="reset" value="Svuota">
+				<button name="submit" class="btn">Carica</button>
 			</div>
 		</form>
 	</div>

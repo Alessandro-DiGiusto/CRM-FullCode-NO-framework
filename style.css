@@ -251,7 +251,7 @@ body {
 
 .white-font {
     color: #e7e7e7 ;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 @-webkit-keyframes AnimationName {
