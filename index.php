@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$password = md5($_POST['password']);
 
-	$sql = "SELECT * FROM users WHERE email='$email'";
+	$sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 	$result = mysqli_query($conn, $sql);
 
 	if ($result->num_rows > 0) {
@@ -22,12 +22,17 @@ if (isset($_POST['submit'])) {
 		$_SESSION['username'] = $row['username'];
 		$_SESSION['userID'] = $row['id'];          //--- $_SESSION['nome.A.piacere'] = $row['id'] (id è il nome effettivo della colonna del db)
 
-		header("Location: contratti2.php");
+		if($email === 'silvia@gmail.com'){
+			header("Location: contratti_admin.php");
+		} else {
+			header("Location: contratti2.php");
+		}
+
 	} else {
-		echo "<script>alert('Email o Password errate.')</script>";
+		echo "<script>alert('Email o Password errate. Riprova.')</script>";
 	}
 }
-	var_dump($_SESSION['userID']);
+	$idSessione = $_SESSION['userID'];
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +67,9 @@ if (isset($_POST['submit'])) {
 			</div>
 
 			<center>
-			<p class="login-register-text">Sei un nuovo agente?<a href="register.php"> Registrati Qui</a>.</p>
-			</center>
+			<p class="login-register-text">Sei un nuovo agente?<a href="register.php"> Registrati Qui.</a></p>
+			</center>  
+			
 
 		</form>
 	</div>

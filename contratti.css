@@ -27,6 +27,17 @@
     font-weight: bold;
 }
 
+#h3-titolo {
+    display: contents;
+    justify-content: left;
+    color: #e7e7e7;
+    margin-top: 3rem;
+    margin-left: 0.9rem;
+    font-family: 'Poppins'sans-serif;
+    font-weight: 100;
+    font-size: initial;
+}
+
 body {
     width: 100%;
     min-height: 100vh;
@@ -91,6 +102,7 @@ body {
     margin-top: 1rem;
     text-decoration: none;
 
+
     background: linear-gradient(89deg, #20d7a8, #6c5ce7);
     background-size: 400% 400%;
 
@@ -140,6 +152,7 @@ body {
     cursor: pointer;
     transition: .3s;
     margin-top: 1rem;
+    margin-left: 0.5rem;
     text-decoration: none;
     
     background: linear-gradient(356deg, #ff6d6d, #ff0000);

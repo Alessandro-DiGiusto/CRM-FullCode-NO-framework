@@ -14,7 +14,7 @@ $idSessione = $_SESSION['userID'];
 
 $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
            FROM contratti
-           WHERE contratti.FK_id_users = '$idSessione'; ";
+           ";
                     
            $result_select = mysqli_query($conn, $select);
 
@@ -25,7 +25,7 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
 /* ------------------------------------------------------------------------ QUERY CONTEGGIO CONTRATTI IN TOTALE ------------- */
             $totContratti = "SELECT *
                              FROM contratti 
-                             WHERE contratti.FK_id_users = '$idSessione'";
+                             ";
 
             $queryContratti = mysqli_query($conn, $totContratti);
             $nContratti = mysqli_num_rows($queryContratti);
@@ -51,19 +51,14 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
     <div class="header-welcome">
         <div class="header-welcome-cose">
             <div class="titolo">
-            <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
+            <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " !</h1><br>"; ?>
+            <?php echo "<h1 id=h1-titolo>Administrator " . "</h1>"; ?>
             </div>
 
             <div class="welcome_btn">
                 <div class="input-group">
-		    	<a href="welcome.php" style="text-decoration: none;">
+		    	<a href="welcome_admin.php" style="text-decoration: none;">
 		    	    <button class="css-selector" class="white-font">Carica</button>
-		    	</a>
-		        </div>
-
-                <div class="input-group">
-		    	<a href="FIX-tipo.php" style="text-decoration: none;">
-		    	    <button class="css-selector" class="white-font">Inserisci</button>
 		    	</a>
 		        </div>
 
@@ -76,7 +71,7 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
         </div>
     </div>
 
-    <h2 id="h2-titolo">I Tuoi Inseriti: <?php echo $nContratti?> <p id="h3-titolo"> contratti in totale.</p> </h2>
+    <h2 id="h2-titolo">Inseriti Della rete: <?php echo $nContratti?> <p id="h3-titolo"> contratti in totale.</p> </h2>
 
     <table class="w3-table-all w3-center">
             <tr>

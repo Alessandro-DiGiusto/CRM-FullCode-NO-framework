@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
 			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
 		?>
 		<div class="input-group">
-			<a href="contratti2.php" style="text-decoration: none;">
+			<a href="contratti_admin.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
 			</a>
 		</div>

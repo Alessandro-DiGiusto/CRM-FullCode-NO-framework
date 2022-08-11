@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    display: grid;
 }
 
 body {
@@ -94,7 +95,7 @@ body {
 .container .login-email .input-group {
     width: 100%;
     height: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 2rem;
 }
 
 .container .login-email .input-group input {
