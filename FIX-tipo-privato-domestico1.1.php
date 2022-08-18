@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
 		</div>
 		<div class="container">
 			<div class="input-group" style="margin: 3rem">
-				<a href="contratti2.php" style="text-decoration: none;"
+				<a href="contratti.php" style="text-decoration: none;"
 				<button name="submit" class="btn">Lista Contratti</button></a>
 			</div>
 			<div class="input-group" style="margin: 3rem">
