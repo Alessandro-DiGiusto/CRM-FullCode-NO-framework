@@ -67,6 +67,12 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 		        </div>
 
                 <div class="input-group">
+		    	<a href="contratti.php" style="text-decoration: none;">
+		    	    <button class="css-selector_INVERSO" class="white-font">Lista (new)</button>
+		    	</a>
+		        </div>
+
+                <div class="input-group">
 			    <a href="logout.php" style="text-decoration: none;">
 			        <button class="css-selector_Logout" class="white-font">Esci</button>
 		      	</a>
