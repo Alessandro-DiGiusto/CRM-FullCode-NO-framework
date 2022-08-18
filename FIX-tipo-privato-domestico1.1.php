@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
 
 		if ($result) {
 		echo "<script>alert('Contratto caricato correttamente.')</script>";
-		$_POST['r_sociale'] = "";    	 $rSociale = ""; $rSociale_uc = "";
+		$_POST['r_sociale'] = "";    	 /* $rSociale = "";  */$rSociale_uc = "";
 		$_POST['iban'] = "";     		 $iban = "";
 		$_POST['email'] = "";   	     $email = "";
 		$_POST['tel'] = "";   	         $cellulare = "";
@@ -98,42 +98,49 @@ if (isset($_POST['submit'])) {
         <ul class="step-wizard-list">
             <li class="step-wizard-item">
                 <span class="progress-count">1</span>
-                <span class="progress-label">✔ Privato<br>✔ Domestico<br>✔ Luce</span>
+                <span class="progress-label">✔ Privato</span>
             </li>
-            <li class="step-wizard-item current-item">
+            <li class="step-wizard-item">
                 <span class="progress-count">2</span>
-                <span class="progress-label">Dati Cliente</span>
+                <span class="progress-label">✔ Domestico</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">Dati Fornitura</span>
+                <span class="progress-label">✔ Luce</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">4</span>
-                <span class="progress-label">Ultimi Dati</span>
+                <span class="progress-label">✔ Dati Cliente</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span class="progress-count">5</span>
-                <span class="progress-label">Completato!</span>
+                <span class="progress-label">✔ Completato!</span>
             </li>
         </ul>
         <div class="container">
-		<form action="prova1.php" method="POST" class="login-email" id="formInserimento">
+		<form action="" method="POST" class="login-email" id="formInserimento">
 
 		<div class="container">
-		<p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente</p>
+		<p class="login-text" style="font-size: 2rem; font-weight: 800;">✔ Fatto!<br>I dati sono stati inseriti correttamente</p>
 		</div>
 
 		<div class="container">
-		    <p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Fornitura</p>
+		    <p class="login-text" style="font-size: 2rem; font-weight: 800;"><?php echo "ciao" . $rSociale ?></p>
+			
 			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
 		</div>
-
-		<div class="input-group">
-			<button name="submit" class="btn">Avanti</button>
+		<div class="container">
+			<div class="input-group" style="margin: 3rem">
+				<a href="contratti2.php" style="text-decoration: none;"
+				<button name="submit" class="btn">Lista Contratti</button></a>
+			</div>
+			<div class="input-group" style="margin: 3rem">
+				<a href="FIX-tipo.php" style="text-decoration: none; background-color: #21D4FD"
+				<button name="submit" class="btn">Nuovo Contratto</button></a>
+			</div>
 		</div>
-		</form>
-    </section>
+	</form>
+</section>
 
 </body>
 </html>

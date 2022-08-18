@@ -84,21 +84,21 @@ if (isset($_POST['submit'])) {
 </div>
  <section class="step-wizard">
         <ul class="step-wizard-list">
-            <li class="step-wizard-item current-item">
+            <li class="step-wizard-item">
                 <span class="progress-count">1</span>
                 <span class="progress-label">✔ Privato</span>
             </li>
-            <li class="step-wizard-item">
+            <li class="step-wizard-item current-item">
                 <span class="progress-count">2</span>
-                <span class="progress-label">Dati Cliente</span>
+                <span class="progress-label">Tipologia</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">Dati Fornitura</span>
+                <span class="progress-label">Contratto</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">4</span>
-                <span class="progress-label">Ultimi Dati</span>
+                <span class="progress-label">Dati Cliente</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span class="progress-count">5</span>
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
         </ul>
         <div class="container">
 		<form action="" method="POST" class="login-email" id="formInserimento">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipo Fornitura <?php echo $scelta ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipologia <?php echo $scelta ?></p>
             <div class="input-group">
                 <a href="FIX-tipo-privato-domestico.php" style="text-decoration: none;"
 				<button class="btn">Domestico</button>

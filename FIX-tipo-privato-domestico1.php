@@ -55,19 +55,19 @@ if (!isset($_SESSION['username'])) {
         <ul class="step-wizard-list">
             <li class="step-wizard-item">
                 <span class="progress-count">1</span>
-                <span class="progress-label">✔ Privato<br>✔ Domestico<br>✔ Luce</span>
+                <span class="progress-label">✔ Privato</span>
             </li>
-            <li class="step-wizard-item current-item">
+            <li class="step-wizard-item">
                 <span class="progress-count">2</span>
-                <span class="progress-label">Dati Cliente</span>
+                <span class="progress-label">✔ Domestico</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">Dati Fornitura</span>
+                <span class="progress-label">✔ Luce</span>
             </li>
-            <li class="step-wizard-item">
+            <li class="step-wizard-item current-item">
                 <span class="progress-count">4</span>
-                <span class="progress-label">Ultimi Dati</span>
+                <span class="progress-label">Dati Cliente</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span class="progress-count">5</span>

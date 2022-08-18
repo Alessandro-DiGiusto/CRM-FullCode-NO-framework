@@ -83,9 +83,9 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
                 <th>IBAN</th>
                 <th>Email</th>
                 <th>Cellulare</th>
-                <th>Luce</th>
-                <th>Gas</th>
-                <th>Luce & Gas</th>
+                <th><center>Luce</th>
+                <th><center>Gas</th>
+                <th><center>Luce & Gas</th>
                 <th>Stipula</th>
                 <th>Data Inserimento</th>
                 <th class="w3-center">Stato</th>
@@ -98,9 +98,9 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
                         echo "<td>" . $row['iban'];
                         echo "<td>" . $row['email'];
                         echo "<td>" . $row['tel'];
-                        echo "<td>" . $row['luce'];
-                        echo "<td>" . $row['gas'];
-                        echo "<td>" . $row['luce_gas'];
+                        echo "<td><center>" . "<div id=td-color>" . $row['luce'];
+                        echo "<td><center>" . "<div id=td-color2>" . $row['gas'];
+                        echo "<td><center>" . "<div id=td-color3>" . $row['luce_gas'];
                         echo "<td>" . $row['stipula'];
                         echo "<td>" . $row['insert_date']; //data inserimento
                         echo "<td><center>" . $row['stato'] . "</tr>";
@@ -108,6 +108,20 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
 
     ?>
+                    <style type="text/css">
+                    #td-color {
+                        color: limegreen ;
+                        background-color: limegreen ;
+                    }
+                    #td-color2 {
+                        color: red ;
+                        background-color: red ;
+                    }
+                    #td-color3 {
+                        color: indigo  ;
+                        background-color: indigo ;
+                    }
+                    </style>
         </table> 
     
         <input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>">
