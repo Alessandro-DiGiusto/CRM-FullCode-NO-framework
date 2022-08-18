@@ -11,6 +11,8 @@ if (!isset($_SESSION['username'])) {
 }
 
 /* -------------------------------------- */
+$pippo = '--> 10';
+$_SESSION['provaTest'] = $pippo;
 
 if (isset($_POST['submit'])) {
 	$rSociale = $_POST['r_sociale'];
@@ -21,6 +23,7 @@ if (isset($_POST['submit'])) {
 	$insertDate = ($_POST['insert_date']);
 	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
+
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
@@ -65,7 +68,7 @@ if (isset($_POST['submit'])) {
         <div class="titolo">
         <?php 
 			$asd = $_SESSION['username'];
-			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
+			echo "<h1>Ciaooo " . $asd . " !</h1>"; 
 		?>
         </div>
 

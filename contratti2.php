@@ -12,7 +12,7 @@ if (!isset($_SESSION['username'])) {
 
 $idSessione = $_SESSION['userID'];
 
-$select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
+$select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce, gas, luce_gas
            FROM contratti
            WHERE contratti.FK_id_users = '$idSessione'; ";
                     
@@ -84,6 +84,9 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
                 <th>IBAN</th>
                 <th>Email</th>
                 <th>Cellulare</th>
+                <th>Luce</th>
+                <th>Gas</th>
+                <th>Luce & Gas</th>
                 <th>Stipula</th>
                 <th>Data Inserimento</th>
                 <th class="w3-center">Stato</th>
@@ -96,6 +99,9 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato
                         echo "<td>" . $row['iban'];
                         echo "<td>" . $row['email'];
                         echo "<td>" . $row['tel'];
+                        echo "<td>" . $row['luce'];
+                        echo "<td>" . $row['gas'];
+                        echo "<td>" . $row['luce_gas'];
                         echo "<td>" . $row['stipula'];
                         echo "<td>" . $row['insert_date']; //data inserimento
                         echo "<td><center>" . $row['stato'] . "</tr>";

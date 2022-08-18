@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
 	$insertDate = ($_POST['insert_date']);
 	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
+    $scelta = ($_POST['btn-scelta']);
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
@@ -106,7 +107,7 @@ if (isset($_POST['submit'])) {
         </ul>
         <div class="container">
 		<form action="" method="POST" class="login-email" id="formInserimento">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipo Fornitura</p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipo Fornitura <?php echo $scelta ?></p>
             <div class="input-group">
                 <a href="FIX-tipo-privato-domestico.php" style="text-decoration: none;"
 				<button class="btn">Domestico</button>

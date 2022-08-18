@@ -105,19 +105,19 @@ if (isset($_POST['submit'])) {
             </li>
         </ul>
         <div class="container">
-		<form action="" method="POST" class="login-email" id="formInserimento">
+		<form action="FIX-tipo-privato.php" method="POST" class="login-email" id="formInserimento">
 
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipo Fornitura</p>
 
             <div class="input-group">
-                <a href="FIX-tipo-privato.php" style="text-decoration: none;"
-				<button class="btn">Privato</button>
-                </a>
+                <!-- <a href="FIX-tipo-privato.php" style="text-decoration: none;" -->
+				<button class="btn" name="btn-scelta" value="1">Privato</button>
+                <!-- </a> -->
 			</div>
 
             <div class="input-group">
                 <a href="FIX-tipo-azienda.php" style="text-decoration: none;"
-				<button class="btn">Azienda</button>
+				<button class="btn" name="btn-scelta" value="2">Azienda</button>
                 </a>
 			</div>
 

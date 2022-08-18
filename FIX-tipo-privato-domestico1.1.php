@@ -11,35 +11,49 @@ if (!isset($_SESSION['username'])) {
 }
 
 /* -------------------------------------- */
-
+$x = "X";
 if (isset($_POST['submit'])) {
 	$rSociale = $_POST['r_sociale'];
 	$iban = $_POST['iban'];
 	$email = ($_POST['email']);
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
-	$insertDate = ($_POST['insert_date']);
 	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
+    
+    $viaFor = ($_POST['viaFor']);
+	$capFor = ($_POST['capFor']);
+	$comuneFor = ($_POST['comuneFor']);
+	$cittaFor = ($_POST['cittaFor']);
+
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
+	$cittaFor_uc = strtoupper($cittaFor);
+	
+	$d = new DateTime(); 
+	$insertDateDB2 = $d->format('H:i:s | \ d-m-Y');
 
-		$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users)
-				VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDate', '$stato', '$agente')";
+        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, luce)
+        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x')";
 		$result = mysqli_query($conn, $sql);
+
 		if ($result) {
 		echo "<script>alert('Contratto caricato correttamente.')</script>";
-		$_POST['r_sociale'] = "";    	 $rSociale = "";
+		$_POST['r_sociale'] = "";    	 $rSociale = ""; $rSociale_uc = "";
 		$_POST['iban'] = "";     		 $iban = "";
 		$_POST['email'] = "";   	     $email = "";
 		$_POST['tel'] = "";   	         $cellulare = "";
 		$_POST['stipula'] = "";   	     $stipula = "";
-		$_POST['insert_date'] = "";   	 $insertDate = "";
+		$_POST['insert_date'] = "";   	 $insertDate = ""; $insertDateDB2 = "";
 		$_POST['stato'] = "";   	     $stato = "";
 		$_POST['FK_id_users'] = "";   	 $agente = "";
+		$_POST['via_for'] = "";   	     $viaFor = "";
+		$_POST['cap_for'] = "";   	     $capFor = "";
+		$_POST['comune_for'] = "";   	 $comuneFor = "";
+		$_POST['citta_for'] = "";   	 $cittaFor = ""; $cittaFor_uc = "";
 	} else {
-		echo "<script>alert('ERRORE: Il contratto è già stato caricato correttamente')</script>";
+		echo "<script>alert('ERRORE: Il contratto è già stato caricato correttamente ')</script>";
 		}
 }
 ?>
@@ -59,7 +73,7 @@ if (isset($_POST['submit'])) {
 <title >JLAB Office</title>
 </head>
 <body>
-<div class="container">
+<div class="container-header">
 <div class="header-welcome">
 <img src="jlab-logo-alpha.png" class="logo-jlab">
         <div class="titolo">
@@ -105,65 +119,22 @@ if (isset($_POST['submit'])) {
             </li>
         </ul>
         <div class="container">
-		<form action="" method="POST" class="login-email" id="formInserimento">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente 1.1</p>
+		<form action="prova1.php" method="POST" class="login-email" id="formInserimento">
 
-            <div class="input-group">
-				<input type="text" placeholder="Ragione Sociale" name="r_sociale" value="<?php echo $_POST['r_sociale']; ?>" required>
-			</div>
-			<div class="input-group">
-				<input type="text" placeholder="IBAN" name="iban" value="<?php echo $_POST['iban']; ?>" required>
-			</div>
-			<div class="input-group">
-				<input type="email" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
-            </div>
-            <div class="input-group">
-				<input type="tel" placeholder="Cellulare" name="tel" value="<?php echo $_POST['tel']; ?>" required>
-			</div>
-			<div class="input-group">
-				Stipula
-				<input type="date" name="stipula" value="<?php echo $_POST['stipula']; ?>" required>
-			</div>
+		<div class="container">
+		<p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente</p>
+		</div>
 
-			<input  type="hidden" name="insert_date" value="<?php $d = new DateTime(); $dataInserimento = $d->format('H:i:s | \ d-m-Y'); echo $dataInserimento;?>">
-
+		<div class="container">
+		    <p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Fornitura</p>
 			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
+		</div>
 
-			<div class="input-group">
-				<button name="submit" class="btn">Carica</button>
-			</div>
-
-			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
+		<div class="input-group">
+			<button name="submit" class="btn">Avanti</button>
+		</div>
 		</form>
-	</div>
-
     </section>
-
-
-<!--     <section class="step-wizard">
-        <ul class="step-wizard-list">
-            <li class="step-wizard-item">
-                <span class="progress-count">1</span>
-                <span class="progress-label">Billing Info</span>
-            </li>
-            <li class="step-wizard-item current-item">
-                <span class="progress-count">2</span>
-                <span class="progress-label">Payment Method</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">3</span>
-                <span class="progress-label">Checkout</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">4</span>
-                <span class="progress-label">alessandro</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">5</span>
-                <span class="progress-label">Success</span>
-            </li>
-        </ul>
-    </section> -->
 
 </body>
 </html>

@@ -168,6 +168,10 @@
     background: #6c5ce7;
 }
 
+#td-fornitura {
+    background-color: rgb(190, 190, 190);
+}
+
 .container .login-email .input-group .btn {
     display: block;
     width: 100%;

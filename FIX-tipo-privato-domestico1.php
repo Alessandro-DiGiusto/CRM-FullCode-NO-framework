@@ -12,36 +12,6 @@ if (!isset($_SESSION['username'])) {
 
 /* -------------------------------------- */
 
-if (isset($_POST['submit'])) {
-	$rSociale = $_POST['r_sociale'];
-	$iban = $_POST['iban'];
-	$email = ($_POST['email']);
-	$cellulare = ($_POST['tel']);
-	$stipula = ($_POST['stipula']);
-	$insertDate = ($_POST['insert_date']);
-	$stato = "INSERITO";
-	$agente = ($_SESSION['userID']);
-
-	/* 	Set first uppercase on fist letter, on username left send on database*/
-	$rSociale_uc = ucwords($rSociale);
-
-		$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users)
-				VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDate', '$stato', '$agente')";
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-		echo "<script>alert('Contratto caricato correttamente.')</script>";
-		$_POST['r_sociale'] = "";    	 $rSociale = "";
-		$_POST['iban'] = "";     		 $iban = "";
-		$_POST['email'] = "";   	     $email = "";
-		$_POST['tel'] = "";   	         $cellulare = "";
-		$_POST['stipula'] = "";   	     $stipula = "";
-		$_POST['insert_date'] = "";   	 $insertDate = "";
-		$_POST['stato'] = "";   	     $stato = "";
-		$_POST['FK_id_users'] = "";   	 $agente = "";
-	} else {
-		echo "<script>alert('ERRORE: Il contratto è già stato caricato correttamente')</script>";
-		}
-}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +35,7 @@ if (isset($_POST['submit'])) {
         <div class="titolo">
         <?php 
 			$asd = $_SESSION['username'];
-			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
+			echo "<h1>Ciaooo " . $asd . " !</h1>"; 
 		?>
         </div>
 
@@ -81,7 +51,7 @@ if (isset($_POST['submit'])) {
 		</div>
     </div>
 </div>
- <section class="step-wizard">
+<section class="step-wizard">
         <ul class="step-wizard-list">
             <li class="step-wizard-item">
                 <span class="progress-count">1</span>
@@ -104,15 +74,17 @@ if (isset($_POST['submit'])) {
                 <span class="progress-label">Completato!</span>
             </li>
         </ul>
-        <div class="container">
+</section>
+<div class="container">
 
-		<form action="" method="POST" class="login-email" id="formInserimento">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente</p>
+	<form action="FIX-tipo-privato-domestico1.1.php" method="POST" class="login-email" id="formInserimento">
+        <div class="container">
+			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente</p>
             <div class="input-group">
 				<input type="text" placeholder="Ragione Sociale" name="r_sociale" value="<?php echo $_POST['r_sociale']; ?>" required>
 			</div>
-			<div class="input-group">
-				<input type="text" placeholder="IBAN" name="iban" value="<?php echo $_POST['iban']; ?>" required>
+            <div class="input-group">
+				<input type="text" placeholder="Iban" name="iban" value="<?php echo $_POST['iban']; ?>" required>
 			</div>
 			<div class="input-group">
 				<input type="email" placeholder="email" name="email" value="<?php echo $_POST['email']; ?>" required>
@@ -120,58 +92,40 @@ if (isset($_POST['submit'])) {
             <div class="input-group">
 				<input type="tel" placeholder="Cellulare" name="tel" value="<?php echo $_POST['tel']; ?>" required>
 			</div>
-<!-- 			<div class="input-group">
-				Stipula
+		</div>
+
+        <div class="container">
+		    <p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Fornitura</p>
+			<div class="input-group">
+				<input type="text" placeholder="Via e numero civico" name="viaFor" value="<?php echo $_POST['viaFor']; ?>" required>
+			</div>
+			<div class="input-group">
+				<input type="number" placeholder="CAP" name="capFor" value="<?php echo $_POST['capFor']; ?>" required>
+            </div>
+			<div class="input-group">
+				<input type="text" placeholder="Comune" name="comuneFor" value="<?php echo $_POST['comuneFor']; ?>" required>
+			</div>
+            <div class="input-group">
+				<input type="text" placeholder="Città" name="cittaFor" value="<?php echo $_POST['cittaFor']; ?>" required>
+			</div>
+        </div>
+
+		<div class="container">
+			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
+
+			<div class="input-group">
+			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Stipula</p>
 				<input type="date" name="stipula" value="<?php echo $_POST['stipula']; ?>" required>
-			</div> -->
-		</form>
-
-		<form action="" method="POST" class="login-email" id="formInserimento">
-		<p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Legale</p>
-            <div class="input-group">
-				<input type="text" placeholder="Via e numero civico" name="via_leg" value="<?php echo $_POST['via_leg']; ?>" required>
 			</div>
+		</div>
+
 			<div class="input-group">
-				<input type="number" placeholder="CAP" name="cap_leg" value="<?php echo $_POST['cap_leg']; ?>" required>
-            </div>
-			<div class="input-group">
-				<input type="text" placeholder="Comune" name="comune_leg" value="<?php echo $_POST['comune_leg']; ?>" required>
-			</div>
-            <div class="input-group">
-				<input type="text" placeholder="Città" name="citta_leg" value="<?php echo $_POST['citta_leg']; ?>" required>
-			</div>
-		</form>
-		<form action="" method="POST" class="login-email" id="formInserimento">
-		<p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Fornitura</p>
-			<div class="input-group">
-				<input type="text" placeholder="Via e numero civico" name="via_for" value="<?php echo $_POST['via_for']; ?>" required>
-			</div>
-			<div class="input-group">
-				<input type="number" placeholder="CAP" name="cap_for" value="<?php echo $_POST['cap_for']; ?>" required>
-            </div>
-			<div class="input-group">
-				<input type="text" placeholder="Comune" name="comune_for" value="<?php echo $_POST['comune_for']; ?>" required>
-			</div>
-            <div class="input-group">
-				<input type="text" placeholder="Città" name="citta_for" value="<?php echo $_POST['citta_for']; ?>" required>
+				<button name="submit" class="btn">Carica</button>
 			</div>
 
-			<input  type="hidden" name="insert_date" value="<?php $d = new DateTime(); $dataInserimento = $d->format('H:i:s | \ d-m-Y'); echo $dataInserimento;?>">
+	</form>
+</div>
 
-			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
-
-
-			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
-		</form>
-		<form action="" method="POST" class="login-email" id="formInserimento">
-		<div class="input-group">
-				<a href="FIX-tipo-privato-domestico1.1.php" style="text-decoration: none;"
-				<button name="submit" class="btn">Carica</button></a>
-			</div>
-		</form>
-
-
-    </section>
 
 
 

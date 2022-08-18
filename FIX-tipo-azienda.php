@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">Dati Fornitura</span>
+                <span class="progress-label">Dati Fornitura<br><?php echo $_SESSION['clickPrivato'];?></span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">4</span>
