@@ -26,7 +26,6 @@ if (isset($_POST['submit'])) {
 	$comuneFor = ($_POST['comuneFor']);
 	$cittaFor = ($_POST['cittaFor']);
 
-
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
 	$cittaFor_uc = strtoupper($cittaFor);

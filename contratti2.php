@@ -29,7 +29,6 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
             $queryContratti = mysqli_query($conn, $totContratti);
             $nContratti = mysqli_num_rows($queryContratti);
-
 ?>
 
 <!DOCTYPE html>

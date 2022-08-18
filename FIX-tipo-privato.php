@@ -124,7 +124,6 @@ if (isset($_POST['submit'])) {
 
     </section>
 
-
 <!--     <section class="step-wizard">
         <ul class="step-wizard-list">
             <li class="step-wizard-item">

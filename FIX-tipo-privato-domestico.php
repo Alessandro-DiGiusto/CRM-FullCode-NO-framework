@@ -24,7 +24,6 @@ if (isset($_POST['submit'])) {
 	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
 
-
 	/* 	Set first uppercase on fist letter, on username left send on database*/
 	$rSociale_uc = ucwords($rSociale);
 
