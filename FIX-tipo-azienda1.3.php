@@ -99,15 +99,15 @@ if (isset($_POST['submit'])) {
         <ul class="step-wizard-list">
             <li class="step-wizard-item">
                 <span class="progress-count">1</span>
-                <span class="progress-label">✔ Privato</span>
+                <span class="progress-label">✔ Azienda</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">2</span>
-                <span class="progress-label">✔ Domestico</span>
+                <span class="progress-label">✔ Altri Usi</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">✔ Luce</span>
+                <span class="progress-label">✔ Luce & Gas</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">4</span>

@@ -76,7 +76,7 @@ if (!isset($_SESSION['username'])) {
         </ul>
 </section>
 <div class="container">
-	<form action="FIX-tipo-privato-domestico1.1.php" method="POST" class="login-email" id="formInserimento">
+	<form action="FIX-tipo-azienda1.3.php" method="POST" class="login-email" id="formInserimento">
         <div class="container">
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Dati Cliente</p>
             <div class="input-group">

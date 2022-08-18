@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 		echo "<script>alert('Contratto caricato correttamente.')</script>";
 		$_POST['r_sociale'] = "";    	 /* $rSociale = "";  */$rSociale_uc = "";
 		$_POST['iban'] = "";     		 $iban = "";
-		$_POST['email'] = "";   	     $email = "";
+		$_POST['email'] = "";   	     /* $email = ""; */
 		$_POST['tel'] = "";   	         $cellulare = "";
 		$_POST['stipula'] = "";   	     $stipula = "";
 		$_POST['insert_date'] = "";   	 $insertDate = ""; $insertDateDB2 = "";
@@ -99,11 +99,11 @@ if (isset($_POST['submit'])) {
         <ul class="step-wizard-list">
             <li class="step-wizard-item">
                 <span class="progress-count">1</span>
-                <span class="progress-label">✔ Privato</span>
+                <span class="progress-label">✔ Azienda</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">2</span>
-                <span class="progress-label">✔ Domestico</span>
+                <span class="progress-label">✔ Altri Usi</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">3</span>
@@ -125,11 +125,12 @@ if (isset($_POST['submit'])) {
 		<p class="login-text" style="font-size: 2rem; font-weight: 800;">✔ Fatto!<br>I dati sono stati inseriti correttamente</p>
 		</div>
 
-		<div class="container">
-		    <p class="login-text" style="font-size: 2rem; font-weight: 800;"><?php echo "ciao" . $rSociale ?></p>
+		<!-- <div class="container"> -->
+		    <p style="font-size: 1rem; font-weight: 200;"><?php echo "Ragione Sociale: " . $rSociale; ?></p>
+            <p style="font-size: 1rem; font-weight: 200;"><?php echo "\nEmail " . $email; ?></p>
 			
 			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
-		</div>
+		<!-- </div> -->
 		<div class="container">
 			<div class="input-group" style="margin: 3rem">
 				<a href="contratti.php" style="text-decoration: none;"

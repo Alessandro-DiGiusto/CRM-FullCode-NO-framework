@@ -41,6 +41,7 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
             $queryBassoValore = mysqli_query($conn, $bassoValore);
             $nBassoValore = mysqli_num_rows($queryBassoValore);
+            $nBVeff = $nBassoValore/2;
 
 /* --------------------------- QUERY CONTEGGIO CONTRATTI ALTO valore 1 Punto ------------- */
             $altoValore = "SELECT *
@@ -50,6 +51,37 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
             $queryAltoValore = mysqli_query($conn, $altoValore);
             $nAltoValore = mysqli_num_rows($queryAltoValore);
+
+/* --------------------------- Logica raggiungimendo obiettivi ------------- */
+
+$t_C_effet = $nAltoValore + $nBVeff;
+if($t_C_effet < 9){
+    echo "non ce nenti pa iatta";
+} else {
+    if($t_C_effett >= 9 && $t_C_effet < 12){
+        echo "premio da 9 vinto";
+        $sett = ($t_C_effet * 70)/100;
+        $tren = ($t_C_effet * 30)/100;
+        if($nAltoValore >= $sett && $nBVeff >= $tren){
+            echo "premio raggiunto";
+        } else {}
+
+    } else {
+        if($nContratti >= 12 && $nContratti < 17){
+            $sett = ($t_C_effet * 70)/100;
+            $tren = ($t_C_effet * 30)/100;
+            if($nAltoValore >= $sett && $nBVeff >= $tren){
+                echo "premio raggiunto";
+            } else {}
+        } else {
+            if($nContratti >= 17 && $nContratti < 21 ){
+                echo "premio da 17 vinto";
+            } else {
+                echo "ne hai fatti piu di 21? bravo!";
+            }
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -92,24 +124,24 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
     <section class="step-wizard">
         <ul class="step-wizard-list">
             <li class="step-wizard-item current-item">
-                <span>1</span>
-                <span>Privato Domestico</span>
+                <span><?php echo $nContratti ?></span>
+                <span>Totale Contratti</span>
             </li>
             <li class="step-wizard-item">
-                <span>2</span>
-                <span>Privato Altri Usi</span>
-            </li>
-            <li class="step-wizard-item">
-                <span><?php echo $a ?></span>
+                <span><?php echo $nAltoValore ?></span>
                 <span>Business</span>
             </li>
             <li class="step-wizard-item">
+                <span><?php echo $nBassoValore ?></span>
+                <span>Domestici</span>
+            </li>
+            <li class="step-wizard-item">
                 <span>4</span>
-                <span>Dati Cliente</span>
+                <span>Mancano X AV</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span>5</span>
-                <span>Completato!</span>
+                <span>Mancano X BV</span>
             </li>
         </ul>
         <!-- <div class="container"> -->
