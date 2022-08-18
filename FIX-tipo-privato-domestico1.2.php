@@ -124,14 +124,14 @@ if (isset($_POST['submit'])) {
 		<p class="login-text" style="font-size: 2rem; font-weight: 800;">✔ Fatto!<br>I dati sono stati inseriti correttamente</p>
 		</div>
 
-		<div class="container">
-		    <p class="login-text" style="font-size: 2rem; font-weight: 800;"><?php echo "ciao" . $rSociale ?></p>
+		<!-- <div class="container"> -->
+		    <!-- <p class="login-text" style="font-size: 2rem; font-weight: 800;"><?php echo "ciao" . $rSociale ?></p> -->
 			
-			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
-		</div>
+			<!-- <input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> --> <!-- i am taking the id value corresponding to the agent database row -->
+		<!-- </div> -->
 		<div class="container">
 			<div class="input-group" style="margin: 3rem">
-				<a href="contratti2.php" style="text-decoration: none;"
+				<a href="contratti.php" style="text-decoration: none;"
 				<button name="submit" class="btn">Lista Contratti</button></a>
 			</div>
 			<div class="input-group" style="margin: 3rem">
