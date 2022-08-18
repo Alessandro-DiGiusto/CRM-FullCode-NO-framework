@@ -31,6 +31,7 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
             $queryContratti = mysqli_query($conn, $totContratti);
             $nContratti = mysqli_num_rows($queryContratti);
+            $a = 5;
 ?>
 
 <!DOCTYPE html>
@@ -73,24 +74,24 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
     <section class="step-wizard">
         <ul class="step-wizard-list">
             <li class="step-wizard-item current-item">
-                <span class="progress-count">1</span>
-                <span class="progress-label">Tipo Fornitura</span>
+                <span>1</span>
+                <span>Privato Domestico</span>
             </li>
             <li class="step-wizard-item">
-                <span class="progress-count">2</span>
-                <span class="progress-label">Tipologia</span>
+                <span>2</span>
+                <span>Privato Altri Usi</span>
             </li>
             <li class="step-wizard-item">
-                <span class="progress-count">3</span>
-                <span class="progress-label">Contratto</span>
+                <span><?php echo $a ?></span>
+                <span>Business</span>
             </li>
             <li class="step-wizard-item">
-                <span class="progress-count">4</span>
-                <span class="progress-label">Dati Cliente</span>
+                <span>4</span>
+                <span>Dati Cliente</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
-                <span class="progress-count">5</span>
-                <span class="progress-label">Completato!</span>
+                <span>5</span>
+                <span>Completato!</span>
             </li>
         </ul>
         <div class="container">
