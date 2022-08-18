@@ -31,7 +31,25 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
 
             $queryContratti = mysqli_query($conn, $totContratti);
             $nContratti = mysqli_num_rows($queryContratti);
-            $a = 5;
+            $a = 5;  /* questa e' una prova per far stampare un numero che mi servira' in futuro */
+
+/* --------------------------- QUERY CONTEGGIO CONTRATTI basso valore 0,5 Punti ------------- */
+            $bassoValore = "SELECT *
+            FROM contratti 
+            WHERE contratti.FK_id_users = '$idSessione'
+            AND valore = '0'";
+
+            $queryBassoValore = mysqli_query($conn, $bassoValore);
+            $nBassoValore = mysqli_num_rows($queryBassoValore);
+
+/* --------------------------- QUERY CONTEGGIO CONTRATTI ALTO valore 1 Punto ------------- */
+            $altoValore = "SELECT *
+            FROM contratti 
+            WHERE contratti.FK_id_users = '$idSessione'
+            AND valore = '1'";
+
+            $queryAltoValore = mysqli_query($conn, $altoValore);
+            $nAltoValore = mysqli_num_rows($queryAltoValore);
 ?>
 
 <!DOCTYPE html>
@@ -94,12 +112,14 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
                 <span>Completato!</span>
             </li>
         </ul>
-        <div class="container">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Totale Inseriti: <?php echo $nContratti ?></p>
+        <!-- <div class="container"> -->
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Inseriti: <?php echo $nContratti ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $nBassoValore ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $nAltoValore ?></p>
 
             <!-- <h2 id="h2-titolo">I Tuoi Inseriti: id="h3-titolo"> contratti in totale.</p>
             </h2> -->
-        </div>
+        <!-- </div> -->
         <!-- <div class="container"> -->
         <table class="w3-table-all w3-center">
                 <tr>
