@@ -11,7 +11,9 @@ if (!isset($_SESSION['username'])) {
 }
 
 /* -------------------------------------- */
-$x = "X";
+$x = "Domestico";
+$valore = 1;
+$domestico = 2;
 if (isset($_POST['submit'])) {
 	$rSociale = $_POST['r_sociale'];
 	$iban = $_POST['iban'];
@@ -33,8 +35,8 @@ if (isset($_POST['submit'])) {
 	$d = new DateTime(); 
 	$insertDateDB2 = $d->format('H:i:s | \ d-m-Y');
 
-        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, luce_gas)
-        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x')";
+        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, luce_gas, valore, domestico)
+        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x', '$valore', '$domestico')";
 		$result = mysqli_query($conn, $sql);
 
 		if ($result) {

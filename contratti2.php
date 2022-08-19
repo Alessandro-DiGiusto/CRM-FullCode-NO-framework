@@ -50,7 +50,7 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
     <div class="header-welcome">
         <div class="header-welcome-cose">
             <div class="titolo">
-            <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " !</h1>"; ?>
+            <?php echo "<h1 id=h1-titolo>Ciao " . $_SESSION['username'] . " lavoro" . " !</h1>"; ?>
             </div>
 
             <div class="welcome_btn">

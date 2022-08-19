@@ -24,64 +24,81 @@ $select = "SELECT r_sociale, iban, email, tel, stipula, insert_date, stato, luce
             if (!$result_select) {
                 echo "Errore query della select" . mysqli_error($conn);
             }
-/* ------------------------------------------------------------------------ QUERY CONTEGGIO CONTRATTI IN TOTALE ------------- */
-            $totContratti = "SELECT *
-                             FROM contratti 
-                             WHERE contratti.FK_id_users = '$idSessione'";
 
-            $queryContratti = mysqli_query($conn, $totContratti);
-            $nContratti = mysqli_num_rows($queryContratti);
-            $a = 5;  /* questa e' una prova per far stampare un numero che mi servira' in futuro */
+
+/* ----------------------------------- QUERY CONTEGGIO CONTRATTI BUSINESS IN TOTALE ------------- */
+            $querySum = "SELECT SUM(business) AS business FROM contratti where domestico = '0';";
+            $result = mysqli_query($conn, $querySum); 
+            $row = mysqli_fetch_assoc($result); 
+            $sumCtrBus = $row['business'];
+/* ----------------------------------- QUERY CONTEGGIO CONTRATTI DOMESTICI IN TOTALE ------------- */
+            $querySum = "SELECT SUM(domestico) AS domestico FROM contratti where business = '0';";
+            $result = mysqli_query($conn, $querySum); 
+            $row = mysqli_fetch_assoc($result); 
+            $sumCtrDom = $row['domestico'];
 
 /* --------------------------- QUERY CONTEGGIO CONTRATTI basso valore 0,5 Punti ------------- */
-            $bassoValore = "SELECT *
-            FROM contratti 
-            WHERE contratti.FK_id_users = '$idSessione'
-            AND valore = '0'";
-
-            $queryBassoValore = mysqli_query($conn, $bassoValore);
-            $nBassoValore = mysqli_num_rows($queryBassoValore);
-            $nBVeff = $nBassoValore/2;
-
+            $querySum = "SELECT SUM(valore) AS valoreB FROM contratti where business = '0';";
+            $result = mysqli_query($conn, $querySum); 
+            $row = mysqli_fetch_assoc($result); 
+            $totPBV = $row['valoreB'];
 /* --------------------------- QUERY CONTEGGIO CONTRATTI ALTO valore 1 Punto ------------- */
-            $altoValore = "SELECT *
-            FROM contratti 
-            WHERE contratti.FK_id_users = '$idSessione'
-            AND valore = '1'";
+            $querySum = "SELECT SUM(valore) AS valoreA FROM contratti where domestico = '0';";
+            $result = mysqli_query($conn, $querySum); 
+            $row = mysqli_fetch_assoc($result); 
+            $totPAV = $row['valoreA'];
 
-            $queryAltoValore = mysqli_query($conn, $altoValore);
-            $nAltoValore = mysqli_num_rows($queryAltoValore);
+/* -----------------------------------  QUERY CONTEGGIO CONTRATTI IN TOTALE ------------- */
+            $totContratti = $sumCtrBus + $sumCtrDom;
+            $totPunteggio = $totPAV + $totPBV;
+
+
 
 /* --------------------------- Logica raggiungimendo obiettivi ------------- */
-
-$t_C_effet = $nAltoValore + $nBVeff;
-if($t_C_effet < 9){
-    echo "non ce nenti pa iatta";
-} else {
-    if($t_C_effett >= 9 && $t_C_effet < 12){
-        echo "premio da 9 vinto";
-        $sett = ($t_C_effet * 70)/100;
-        $tren = ($t_C_effet * 30)/100;
-        if($nAltoValore >= $sett && $nBVeff >= $tren){
-            echo "premio raggiunto";
-        } else {}
-
+function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti){    
+    if($totPunteggio < 9){
+        echo $totPAV . "/7" . " Alto Valore " . "\n" . $totPBV . "/2" . " Basso Valore";
     } else {
-        if($nContratti >= 12 && $nContratti < 17){
-            $sett = ($t_C_effet * 70)/100;
-            $tren = ($t_C_effet * 30)/100;
-            if($nAltoValore >= $sett && $nBVeff >= $tren){
-                echo "premio raggiunto";
-            } else {}
-        } else {
-            if($nContratti >= 17 && $nContratti < 21 ){
-                echo "premio da 17 vinto";
+        if($totPunteggio >= 9 && $totPunteggio < 12){
+            $sett = ($totPunteggio * 70)/100;
+            $settRound = ceil($sett);
+            $tren = ($totPunteggio * 30)/100;
+            $trenRound = floor($tren);
+            $x=0;
+            if($totPAV >= $settRound){
+                echo "350€ premio raggiunto";
             } else {
-                echo "ne hai fatti piu di 21? bravo!";
+                $x=350;
+                echo $totPAV . "/" . $settRound . " Alto Valore " . "\n" . $totPBV . "/" . $trenRound . " Basso Valore"; 
+            }
+    
+        } else {
+            if($totPunteggio >= 12 && $totPunteggio < 17){
+                $sett = ($totPunteggio * 70)/100;
+                $settRound = ceil($sett);
+                $tren = ($totPunteggio * 30)/100;
+                $trenRound = floor($tren);
+                if($totPAV >= $settRound){
+                    echo "520€ premio raggiunto";
+                } else {echo "premio da 520 ancora non raggiunto" . $totPAV . "/" . $settRound . " Alto Valore " . "\n" . $totPBV . "/" . $trenRound . " Basso Valore"; }
+            } else {
+                if($totPunteggio >= 17 && $totPunteggio < 21 ){
+                $sett = ($totPunteggio * 70)/100;
+                $settRound = ceil($sett);
+                $tren = ($totPunteggio * 30)/100;
+                $trenRound = floor($tren);
+                if($totPAV >= $settRound && $totPBV >= $trenRound){
+                    echo "520€ premio raggiunto";
+                    } else {echo "premio da 520 ancora non raggiunto sett -> " . $settRound . "tren --> " . $trenRound;}
+                } else {
+                    echo "ne hai fatti piu di 21? bravo!";
+                }
             }
         }
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -124,30 +141,36 @@ if($t_C_effet < 9){
     <section class="step-wizard">
         <ul class="step-wizard-list">
             <li class="step-wizard-item current-item">
-                <span><?php echo $nContratti ?></span>
+                <span><?php echo $totContratti ?></span>
                 <span>Totale Contratti</span>
             </li>
             <li class="step-wizard-item">
-                <span><?php echo $nAltoValore ?></span>
+                <span><?php echo $sumCtrBus ?></span>
                 <span>Business</span>
             </li>
             <li class="step-wizard-item">
-                <span><?php echo $nBassoValore ?></span>
+                <span><?php echo $sumCtrDom ?></span>
                 <span>Domestici</span>
             </li>
             <li class="step-wizard-item">
-                <span>4</span>
-                <span>Mancano X AV</span>
+                <span><?php conteggio($totPunteggio, $totPAV, $totPBV, $totContratti); ?></span>
+                <span><?php 
+                function premio($x){
+                    if($x > 1){
+                        echo "$x euro";
+                    } else {}
+                } ?></span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span>5</span>
-                <span>Mancano X BV</span>
+                <span>l'ape maya</span>
             </li>
         </ul>
         <!-- <div class="container"> -->
-            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Inseriti: <?php echo $nContratti ?></p>
-            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $nBassoValore ?></p>
-            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $nAltoValore ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Punteggio: <?php echo $totPunteggio ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $totPAV . "/7" ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $totPBV . "/2"?></p>
+
 
             <!-- <h2 id="h2-titolo">I Tuoi Inseriti: id="h3-titolo"> contratti in totale.</p>
             </h2> -->
@@ -189,17 +212,17 @@ if($t_C_effet < 9){
                 ?>
                 <style type="text/css">
                     #td-color {
-                        color: limegreen;
+                        color: white;
                         background-color: limegreen;
                     }
 
                     #td-color2 {
-                        color: red;
+                        color: white;
                         background-color: red;
                     }
 
                     #td-color3 {
-                        color: indigo;
+                        color: white;
                         background-color: indigo;
                     }
                 </style>
