@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
 	$insertDate = ($_POST['insert_date']);
-	$stato = "INSERITO";
+	$stato = 1;
 	$agente = ($_SESSION['userID']);
     $scelta = ($_POST['btn-scelta']);
 

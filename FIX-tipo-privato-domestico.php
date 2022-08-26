@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
 	$insertDate = ($_POST['insert_date']);
-	$stato = "INSERITO";
+	$stato = 1;
 	$agente = ($_SESSION['userID']);
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/

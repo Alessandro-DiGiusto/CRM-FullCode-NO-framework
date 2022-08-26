@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- Coding By CodinFire - youtube.com/codingfire -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style-confetti.css" />
+    <title>Confetti Popup Modal | Requested Video | V2</title>
+  </head>
+  <body>
+    <div class="container">
+      <button class="open">Claim Your Reward</button>
+      <!-- modal -->
+      <div class="box">
+        <div class="imgBox">
+          <img src="./logo.png" alt="" />
+        </div>
+        <h2 class="title">Congratulations You Won This! 🌟</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita
+          voluptatum velit soluta dicta neque doloremque quaerat vitae. Harum
+          maxime dolor totam voluptatum soluta, excepturi optio magni quis odio
+          qui facere.
+        </p>
+        <div class="btnContainer">
+          <button class="close">Claim Now!</button>
+        </div>
+      </div>
+    </div>
+    <!-- Please watch Confetti Effect Video Before Watching This  -->
+    <!-- Confetti.min.js + Confetti Video Link In Description -->
+    <script src="./confetti.min.js"></script>
+    <script>
+      const openbtn = document.querySelector(".open");
+      const modal = document.querySelector('.box');
+      const closeBtn = document.querySelector('.close');
+      // we are saying that when we click This
+      openbtn.addEventListener("click", () => {
+        modal.classList.add('visible')
+        openbtn.classList.add('hidden');
+        const startit = () => {
+          setTimeout(function () {
+            confetti.start();
+          }, 1000);
+        };
+        // Stops
+        const stopit = () => {
+          setTimeout(function () {
+            confetti.stop();
+          }, 5000);
+        };
+        // playing start
+        startit();
+        // stoping it
+        stopit();
+      });
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('visible')
+        openbtn.classList.remove('hidden');
+      })
+    </script>
+  </body>
+</html>

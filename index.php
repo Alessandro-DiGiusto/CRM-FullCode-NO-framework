@@ -5,6 +5,7 @@ include 'config.php';
 session_start();
 
 error_reporting(0);
+$_SESSION['id'] = "";
 
 if (isset($_SESSION['username'])) {
     header("Location: welcome.php");
@@ -25,7 +26,7 @@ if (isset($_POST['submit'])) {
 		if($email === 'silvia@gmail.com'){
 			header("Location: contratti_admin.php");
 		} else {
-			header("Location: contratti2.php");
+			header("Location: contratti.php");
 		}
 
 	} else {

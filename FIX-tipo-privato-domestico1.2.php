@@ -11,14 +11,16 @@ if (!isset($_SESSION['username'])) {
 }
 
 /* -------------------------------------- */
-$x = "X";
+$x = "Domestico";
+$valore = 0.5;
+$domestico = 1;
 if (isset($_POST['submit'])) {
 	$rSociale = $_POST['r_sociale'];
 	$iban = $_POST['iban'];
 	$email = ($_POST['email']);
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
-	$stato = "INSERITO";
+	$stato = 1;
 	$agente = ($_SESSION['userID']);
     
     $viaFor = ($_POST['viaFor']);
@@ -33,8 +35,8 @@ if (isset($_POST['submit'])) {
 	$d = new DateTime(); 
 	$insertDateDB2 = $d->format('H:i:s | \ d-m-Y');
 
-        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, gas)
-        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x')";
+        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, gas, valore, domestico)
+        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x', '$valore', '$domestico')";
 		$result = mysqli_query($conn, $sql);
 
 		if ($result) {
@@ -83,7 +85,7 @@ if (isset($_POST['submit'])) {
         </div>
 
 		<div class="input-group">
-			<a href="contratti2.php" style="text-decoration: none;">
+			<a href="contratti.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
 			</a>
 		</div>

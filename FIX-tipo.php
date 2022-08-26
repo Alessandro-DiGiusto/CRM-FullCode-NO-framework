@@ -68,7 +68,7 @@ if (!isset($_SESSION['username'])) {
         </div>
 
 		<div class="input-group">
-			<a href="contratti2.php" style="text-decoration: none;">
+			<a href="contratti.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
 			</a>
 		</div>

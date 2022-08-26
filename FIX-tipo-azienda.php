@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
 	$insertDate = ($_POST['insert_date']);
-	$stato = "INSERITO";
+	$stato = 1;
 	$agente = ($_SESSION['userID']);
 
 	/* 	Set first uppercase on fist letter, on username left send on database*/
@@ -86,17 +86,17 @@ if (isset($_POST['submit'])) {
                 <span class="progress-count">1</span>
                 <span class="progress-label">✔ Azienda</span>
             </li>
-            <li class="step-wizard-item current-item">
-                <span class="progress-count">2</span>
-                <span class="progress-label">Dati Cliente</span>
-            </li>
             <li class="step-wizard-item">
+                <span class="progress-count">2</span>
+                <span class="progress-label">✔ Altri Usi</span>
+            </li>
+            <li class="step-wizard-item current-item">
                 <span class="progress-count">3</span>
-                <span class="progress-label">Dati Fornitura<br><?php echo $_SESSION['clickPrivato'];?></span>
+                <span class="progress-label">Tipo Fornitura</span>
             </li>
             <li class="step-wizard-item">
                 <span class="progress-count">4</span>
-                <span class="progress-label">Ultimi Dati</span>
+                <span class="progress-label">Dati Cliente</span>
             </li>
             <li class="step-wizard-item" id="li-completato">
                 <span class="progress-count">5</span>
@@ -109,14 +109,18 @@ if (isset($_POST['submit'])) {
             <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tipo Fornitura</p>
 
             <div class="input-group">
-                <a href="domestico.php" style="text-decoration: none;"
-				<button class="btn">Domestico</button>
+                <a href="FIX-tipo-azienda1.php" style="text-decoration: none;"
+				<button class="btn">Luce</button>
                 </a>
 			</div>
-
             <div class="input-group">
-                <a href="altriusi.php" style="text-decoration: none;"
-				<button class="btn">Altri Usi</button>
+                <a href="FIX-tipo-azienda2.php" style="text-decoration: none;"
+				<button class="btn">Gas</button>
+                </a>
+			</div>
+            <div class="input-group">
+                <a href="FIX-tipo-azienda3.php" style="text-decoration: none;"
+				<button class="btn">Luce & Gas</button>
                 </a>
 			</div>
 
