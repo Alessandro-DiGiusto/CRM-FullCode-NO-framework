@@ -50,15 +50,22 @@ if (!$result_select_menu) {
 /* ---------------------------------------------------------------------------- */
 /* https://www.youtube.com/watch?v=zc1F50TeyIY */
 /* ---------------------------------------------------------------------------- */
-$sql="select * contratti ";  
+
+$sql = "select * from contratti";
+$result = mysqli_query($conn, $queryCambioStato);
 //Get Update id and status  
-if (isset($_GET['id']) && isset($_GET['stato'])) {  
-     $id=$_GET['id'];  
-     $status=$_GET['stato'];  
-     mysqli_query($con,"update login set status='$status' where id='$id'");  
-     header("location:index.php");  
-     die();  
-}  
+if (isset($_GET['id']) && isset($_GET['stato'])) {
+    $id = $_GET['id'];
+    $stato = $_GET['stato'];
+    $sql = "update contratti set stato='$stato' where id='$id'";
+    $result = mysqli_query($conn, $queryCST);
+    if ($result) {
+        echo "<script>alert('Stato aggiornato con successo.')</script>";
+    } else {
+        echo "<script>alert('ERRORE: Lo stato non è stato aggiornato correttamente ')</script>";
+    }
+}
+
 
 
 /* ----------------------------------- QUERY CONTEGGIO CONTRATTI BUSINESS IN TOTALE ------------- */
@@ -298,258 +305,111 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
             </li> -->
     </ul>
 
-    <div id="div-desktop" class="container-progressBar">
-        <div class="skill">
-            <p>Totale Punteggio</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:1;" id="svg1" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle1" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number1">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number = document.getElementById("number1");
-            let counter = 0;
-            setInterval(() => {
-                if (counter == 65) {
-                    clearInterval();
-                } else {
-                    counter += 1;
-                    number.innerHTML = counter + "%";
-                }
-            }, 50);
-        </script>
-        <div class="skill">
-            <p>Alto Valore</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:2;" id="svg2" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle2" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number2">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number2 = document.getElementById("number2");
-            let counter2 = 0;
-            setInterval(() => {
-                if (counter2 == 37) {
-                    clearInterval();
-                } else {
-                    counter2 += 1;
-                    number2.innerHTML = counter2 + "%";
-                }
-            }, 50);
-        </script>
-        <div class="skill">
-            <p>Basso Valore</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:3;" id="svg3" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle3" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number3">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number3 = document.getElementById("number3");
-            let counter3 = 0;
-            setInterval(() => {
-                if (counter3 == 81) {
-                    clearInterval();
-                } else {
-                    counter3 += 1;
-                    number3.innerHTML = counter3 + "%";
-                }
-            }, 50);
-        </script>
-    </div>
-
     <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Punteggio: <?php echo $totPunteggio ?></p>
     <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $totPAV ?></p>
     <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $totPBV ?></p>
 
     <div class="container">
-            <div>Seleziona Agente </div>
-            <!-- <div>Ordina per stato</div> -->
-            <div>
+        <div>Seleziona Agente </div>
+        <!-- <div>Ordina per stato</div> -->
+        <div>
 
-                <select id="list" onchange="getSelectValue();">
-                    <option value="Alessandro">Alessandro</option>
-                    <option value="Mario Rossi">Mario Rossi</option>
-                    <option value="Roberto">Roberto</option>
-                    <option value="Salvatore">Salvatore</option>
-                </select>
+            <select id="list" onchange="getSelectValue();">
+                <option value="Alessandro">Alessandro</option>
+                <option value="Mario Rossi">Mario Rossi</option>
+                <option value="Roberto">Roberto</option>
+                <option value="Salvatore">Salvatore</option>
+            </select>
 
-                <script>
-                    function getSelectValue()
-                    {
-                        var selectedValue = document.getElementById("list").value;
-                        console.log(selectedValue);
-                    }
-                </script>
+            <script>
+                function getSelectValue() {
+                    var selectedValue = document.getElementById("list").value;
+                    console.log(selectedValue);
+                }
+            </script>
 
-                <?php 
-                    $userSelezionato = '
+            <?php
+            $userSelezionato = '
                     <script>
                         var selectedValueE = document.getElementById("list").value;
                         document.writeln(selectedValueE);
                     </script> ';
-                ?>
+            ?>
 
-            </div>
+        </div>
     </div>
 
 
 
 
-    <!-- <h2 id="h2-titolo">I Tuoi Inseriti: id="h3-titolo"> contratti in totale.</p>
-            </h2> -->
-    <!-- </div> -->
-    <!-- <div class="container"> -->
-    <table class="w3-table-all w3-center">
+
+    <table class="w3-table-all w3-center" border="1">
         <tr>
+            <th>Ordine</th>
             <th>Agente</th>
             <th>Ragione Sociale</th>
-            <th>IBAN</th>
+            <th>Iban</th>
             <th>Email</th>
-            <th>Cellulare</th>
-            <th>
-                <center>Luce
-            </th>
-            <th>
-                <center>Gas
-            </th>
-            <th>
-                <center>Luce & Gas
-            </th>
+            <th>Cell</th>
+            <th>Luce</th>
+            <th>Gas</th>
+            <th>Luce & Gas</th>
             <th>Stipula</th>
             <th>Data Inserimento</th>
-            <th class="w3-center">Stato</th>
+            <th>Stato</th>
+
         </tr>
-
         <?php
-
-        while ($row = mysqli_fetch_assoc($result_select_menu)) {
-            echo "<tr>" . "<td>" . $row['username'];
-            echo "<td>" . $row['r_sociale'];
-            echo "<td>" . $row['iban'];
-            echo "<td>" . $row['email'];
-            echo "<td>" . $row['tel'];
-            echo "<td><center>" . "<div id=td-color>" . $row['luce'];
-            echo "<td><center>" . "<div id=td-color2>" . $row['gas'];
-            echo "<td><center>" . "<div id=td-color3>" . $row['luce_gas'];
-            echo "<td>" . $row['stipula'];
-            echo "<td>" . $row['insert_date']; //data inserimento
-            echo "<td><center>";
-            if ($row['stato'] == "1") {
-                echo "Inserito" . "</tr>";
-            } else {
-                if ($row['stato'] == "2") {
-                    echo "Lavorazione" . "</tr>";
-                } else {
-                    if ($row['stato'] == "3") {
-                        echo "Sospeso" . "</tr>";
-                    } else {
-                        if ($row['stato'] == "4") {
-                            echo "KO" . "</tr>";
+        $i = 1;
+        if (mysqli_num_rows($result_select) > 0) {
+            while ($row = mysqli_fetch_assoc($result_select)) { ?>
+                <tr>
+                    <td><?php echo $i++ ?></td>
+                    <td><?php echo $row['username'] ?></td>
+                    <td><?php echo $row['r_sociale'] ?></td>
+                    <td><?php echo $row['iban'] ?></td>
+                    <td><?php echo $row['email'] ?></td>
+                    <td><?php echo $row['tel'] ?></td>
+                    <td><?php echo $row['luce'] ?></td>
+                    <td><?php echo $row['gas'] ?></td>
+                    <td><?php echo $row['luce_gas'] ?></td>
+                    <td><?php echo $row['stipula'] ?></td>
+                    <td><?php echo $row['insert_date'] ?></td>
+                    <td><?php echo "<center>";
+                        if ($row['stato'] == "1") {
+                            echo "Inserito";
                         } else {
-                            if ($row['stato'] == "5") {
-                                echo "APPROVATO" . "</tr>";
+                            if ($row['stato'] == "2") {
+                                echo "Lavorazione";
+                            } else {
+                                if ($row['stato'] == "3") {
+                                    echo "Sospeso";
+                                } else {
+                                    if ($row['stato'] == "4") {
+                                        echo "KO";
+                                    } else {
+                                        if ($row['stato'] == "5") {
+                                            echo "APPROVATO";
+                                        }
+                                    }
+                                }
                             }
-                        }
-                    }
-                }
-            }
-        }
-        ?>
-        <style type="text/css">
-            #td-color {
-                color: white;
-                background-color: limegreen;
-            }
+                        } ?></td>
 
-            #td-color2 {
-                color: white;
-                background-color: red;
-            }
-
-            #td-color3 {
-                color: white;
-                background-color: indigo;
-            }
-        </style>
+                    <td>
+                        <select onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['stato'] ?>')">
+                            <option value="">Update Status</option>
+                            <option value="1">Inserito</option>
+                            <option value="2">Lavorazione</option>
+                            <option value="3">Sospeso</option>
+                        </select>
+                    </td>
+                </tr>
+        <?php      }
+        } ?>
     </table>
 
-
-    <div class="container">  
-      <table border="1">  
-           <tr>  
-                <th>Sl. No.</th>  
-                <th>Username</th>  
-                <th>Date Time</th>  
-                <th>Status</th>  
-                <th>Action</th>  
-           </tr>  
-           <?php  
-           $i=1;  
-           if (mysqli_num_rows($sql)>0) {  
-                 while ($row=mysqli_fetch_assoc($sql)) { ?>  
-                 <tr>  
-                      <td><?php echo $i++ ?></td>  
-                      <td><?php echo $row['username'] ?></td>  
-                      <td><?php echo $row['added_on'] ?></td>  
-                      <td>  
-                           <?php  
-                           if ($row['status']==1) {  
-                                echo "Pending";  
-                           }if ($row['status']==2) {  
-                                echo "Accept";  
-                           }if ($row['status']==3) {  
-                                echo "Reject";  
-                           }  
-                           ?>  
-                      </td>  
-                      <td>  
-                           <select onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['id'] ?>')">  
-                                <option value="">Update Status</option>  
-                                <option value="1">Pending</option>  
-                                <option value="2">Accept</option>  
-                                <option value="3">Reject</option>  
-                           </select>  
-                      </td>  
-                 </tr>       
-           <?php      }  
-            } ?>  
-      </table>  
- </div>  
- <script type="text/javascript">  
+    <script type="text/javascript">  
       function status_update(value,id){  
            //alert(id);  
            let url = "http://127.0.0.1/tutorials/status_update/index.php";  
