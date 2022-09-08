@@ -15,16 +15,70 @@ $idSessione = $_SESSION['userID'];
 if ($idSessione != 2) {
     header("Location: contratti.php");
 }
+
+
+
+
+if (isset($_POST['submit'])) {
+    $idCtr = $_POST['id_delContratto'];
+    $stato = $_POST['lista-stati'];
+
+    $sql = "UPDATE contratti set stato = '$stato' where id_delContratto = '$idCtr'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        echo "<script>alert('Aggiornato correttamente.')</script>";
+        $_POST['id_delContratto'] = "";
+        $idCtr = "";
+        $_POST['lista-stati'] = "";
+        $stato = "";
+    } else {
+        echo "<script>alert('ERRORE: Il contratto non è stato aggiornato correttamente ')</script>";
+    }
+}
+
+
+
+
+
+
+
+
+
 /* ---------------------------------------------------------------------- */
 $idSessione = $_SESSION['userID'];
 $meseCorrente = new DateTime();
-$dataOra = $meseCorrente->format('m-Y');
+$oraCorrente = $meseCorrente->format('H:i:s');
+$dataOra = $meseCorrente->format('d-m-Y');
+
+$giorno = $meseCorrente->format('d');
+$mese = $meseCorrente->format('m');
+$anno = $meseCorrente->format('Y');
+
+/* -----------------------------DAL-------------------------------------- */
+$mese_mod = $mese - 1; // es. 8
+
+if (strlen($mese_mod) == 1) {   // se il mese è tra 1 al 9, aggiunge uno 0 d'avanti.
+    $length = 2;
+    $mese_mod = str_pad($mese_mod, $length, "0", STR_PAD_LEFT);
+}
+
+$electric_date_F = 16 . "-" . $mese_mod . "-" . $anno; 
+/* ---------------------------------------------------------------------- */
+
+/* -----------------------------AL--------------------------------------- */
+
+$electric_date_L = 15 . "-" . $mese . "-" . $anno;
+
+
+/* ---------------------------------------------------------------------- */
+
 
 
 $select = "SELECT * FROM contratti
             INNER JOIN users
             ON contratti.FK_id_users = users.id
-            ORDER BY username, insert_date DESC;";
+            ORDER BY username, insert_date BETWEEN '$electric_date_F' AND '$electric_date_L' DESC;";
 
 $result_select = mysqli_query($conn, $select);
 
@@ -35,30 +89,9 @@ if (!$result_select) {
 
 /* ---------------------------------------------------------------------------- */
 
-$selectMenus = "SELECT * FROM contratti
-INNER JOIN users
-ON contratti.FK_id_users = users.id AND users.username = '$userSelezionato'
-ORDER BY username, insert_date DESC;";
-
-$result_select_menu = mysqli_query($conn, $selectMenus);
-
-// per stampare eventuali errori
-if (!$result_select_menu) {
-    echo "Errore query della select" . mysqli_error($conn);
-}
-
 /* ---------------------------------------------------------------------------- */
 /* https://www.youtube.com/watch?v=zc1F50TeyIY */
 /* ---------------------------------------------------------------------------- */
-$sql="select * contratti ";  
-//Get Update id and status  
-if (isset($_GET['id']) && isset($_GET['stato'])) {  
-     $id=$_GET['id'];  
-     $status=$_GET['stato'];  
-     mysqli_query($con,"update login set status='$status' where id='$id'");  
-     header("location:index.php");  
-     die();  
-}  
 
 
 /* ----------------------------------- QUERY CONTEGGIO CONTRATTI BUSINESS IN TOTALE ------------- */
@@ -66,6 +99,8 @@ $querySum = "SELECT SUM(business) AS business FROM contratti where domestico = '
 $result = mysqli_query($conn, $querySum);
 $row = mysqli_fetch_assoc($result);
 $sumCtrBus = $row['business'];
+
+
 /* ----------------------------------- QUERY CONTEGGIO CONTRATTI DOMESTICI IN TOTALE ------------- */
 $querySum = "SELECT SUM(domestico) AS domestico FROM contratti where business = '0' AND insert_date LIKE '%$dataOra%';";
 $result = mysqli_query($conn, $querySum);
@@ -242,7 +277,7 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="FIX-welcome-test-style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="w3.css">
 
     <link rel="stylesheet" href="style-circle-bar.css">
 
@@ -256,7 +291,7 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
             <div class="titolo">
                 <?php
                 $asd = $_SESSION['username'];
-                echo "<h1>Pannello di Controllo</h1>";
+                echo "<h1>Pannello di Controllo|DAL $electric_date_F |AL| $electric_date_L </h1>";
                 ?>
             </div>
 
@@ -298,197 +333,161 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
             </li> -->
     </ul>
 
-    <div id="div-desktop" class="container-progressBar">
-        <div class="skill">
-            <p>Totale Punteggio</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:1;" id="svg1" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle1" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number1">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number = document.getElementById("number1");
-            let counter = 0;
-            setInterval(() => {
-                if (counter == 65) {
-                    clearInterval();
-                } else {
-                    counter += 1;
-                    number.innerHTML = counter + "%";
-                }
-            }, 50);
-        </script>
-        <div class="skill">
-            <p>Alto Valore</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:2;" id="svg2" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle2" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number2">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number2 = document.getElementById("number2");
-            let counter2 = 0;
-            setInterval(() => {
-                if (counter2 == 37) {
-                    clearInterval();
-                } else {
-                    counter2 += 1;
-                    number2.innerHTML = counter2 + "%";
-                }
-            }, 50);
-        </script>
-        <div class="skill">
-            <p>Basso Valore</p>
-            <div class="outer">
-                <div class="inner">
-                    <svg style="position: absolute; z-index:3;" id="svg3" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                        <defs>
-                            <linearGradient id="GradientColor">
-                                <stop offset="0%" stop-color="#e91e63" />
-                                <stop offset="100%" stop-color="#673ab7" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="circle3" cx="80" cy="80" r="70" stroke-linecap="round" />
-                    </svg>
-                    <div id="number3">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            let number3 = document.getElementById("number3");
-            let counter3 = 0;
-            setInterval(() => {
-                if (counter3 == 81) {
-                    clearInterval();
-                } else {
-                    counter3 += 1;
-                    number3.innerHTML = counter3 + "%";
-                }
-            }, 50);
-        </script>
-    </div>
 
-    <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Punteggio: <?php echo $totPunteggio ?></p>
-    <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $totPAV ?></p>
-    <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $totPBV ?></p>
 
     <div class="container">
-            <div>Seleziona Agente </div>
-            <!-- <div>Ordina per stato</div> -->
-            <div>
+        <div class="container_statoUP-header">
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Punteggio: <?php echo $totPunteggio ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $totPAV ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $totPBV ?></p>
+        </div>
+        <form action="" method="POST" class="login-email" id="formInserimento">
+            <div class="container_statoUP-header">
+                <p class="login-text" style="font-size: 2rem; font-weight: 800;">Aggiorna Stato</p>
+                <div class="input-group">
+                    <input type="integer" placeholder="ID del Contratto d'aggiornare" name="id_delContratto" value="<?php echo $_POST['id_delContratto']; ?>">
+                </div>
 
-                <select id="list" onchange="getSelectValue();">
-                    <option value="Alessandro">Alessandro</option>
-                    <option value="Mario Rossi">Mario Rossi</option>
-                    <option value="Roberto">Roberto</option>
-                    <option value="Salvatore">Salvatore</option>
-                </select>
 
-                <script>
-                    function getSelectValue()
-                    {
-                        var selectedValue = document.getElementById("list").value;
-                        console.log(selectedValue);
-                    }
-                </script>
 
-                <?php 
-                    $userSelezionato = '
-                    <script>
-                        var selectedValueE = document.getElementById("list").value;
-                        document.writeln(selectedValueE);
-                    </script> ';
-                ?>
+                <div class="input-group">
+                    <label for="lista-stati">Inserisci stato</label>
+                    <input list="lista-stati-valori" id="lista-stati" name="lista-stati" />
+
+                    <datalist id="lista-stati-valori">
+                        <option value="1">Inserito
+                        <option value="2">Lavorazione
+                        <option value="3">Sospeso
+                        <option value="4">KO
+                        <option value="5">APPROVATO
+                    </datalist>
+                </div>
 
             </div>
+            <!--             <p>1=Inserito, 2=Lavorazione, 3=Sospeso, 4=KO, 5=APPROVATO</p> -->
+            <div style="display: flex; justify-content: space-between">
+                <p>1=Inserito</p>
+                <p>2=lavorazione</p>
+                <p>3=Sospeso</p>
+                <p>4=KO</p>
+                <p>5=APPROVATO</p>
+            </div>
+
+            <div class="input-group">
+                <button name="submit" class="btn">Aggiorna stato del contratto</button>
+            </div>
+
+        </form>
     </div>
 
 
 
 
-    <!-- <h2 id="h2-titolo">I Tuoi Inseriti: id="h3-titolo"> contratti in totale.</p>
-            </h2> -->
-    <!-- </div> -->
-    <!-- <div class="container"> -->
-    <table class="w3-table-all w3-center">
+
+    <table class="w3-table-all w3-center" border="1">
         <tr>
+            <th>N° ctr</th>
             <th>Agente</th>
             <th>Ragione Sociale</th>
-            <th>IBAN</th>
+            <th>Iban</th>
             <th>Email</th>
-            <th>Cellulare</th>
-            <th>
-                <center>Luce
-            </th>
-            <th>
-                <center>Gas
-            </th>
-            <th>
-                <center>Luce & Gas
-            </th>
+            <th>Cell</th>
+            <th>Luce</th>
+            <th>Gas</th>
+            <th>Luce & Gas</th>
             <th>Stipula</th>
             <th>Data Inserimento</th>
-            <th class="w3-center">Stato</th>
+            <th>Stato</th>
+            <th>ID contratto</th>
+            <th class="login-text" style="font-size: 15px; font-weight: 800;">Aggiorna Stato</th>
+
         </tr>
-
         <?php
-
-        while ($row = mysqli_fetch_assoc($result_select_menu)) {
-            echo "<tr>" . "<td>" . $row['username'];
-            echo "<td>" . $row['r_sociale'];
-            echo "<td>" . $row['iban'];
-            echo "<td>" . $row['email'];
-            echo "<td>" . $row['tel'];
-            echo "<td><center>" . "<div id=td-color>" . $row['luce'];
-            echo "<td><center>" . "<div id=td-color2>" . $row['gas'];
-            echo "<td><center>" . "<div id=td-color3>" . $row['luce_gas'];
-            echo "<td>" . $row['stipula'];
-            echo "<td>" . $row['insert_date']; //data inserimento
-            echo "<td><center>";
-            if ($row['stato'] == "1") {
-                echo "Inserito" . "</tr>";
-            } else {
-                if ($row['stato'] == "2") {
-                    echo "Lavorazione" . "</tr>";
-                } else {
-                    if ($row['stato'] == "3") {
-                        echo "Sospeso" . "</tr>";
-                    } else {
-                        if ($row['stato'] == "4") {
-                            echo "KO" . "</tr>";
+        $i = 1;
+        if (mysqli_num_rows($result_select) > 0) {
+            while ($row = mysqli_fetch_assoc($result_select)) { ?>
+                <tr>
+                    <td><?php echo $i++ ?></td>
+                    <td><?php echo $row['username'] ?></td>
+                    <td><?php echo $row['r_sociale'] ?></td>
+                    <td><?php echo $row['iban'] ?></td>
+                    <td><?php echo $row['email'] ?></td>
+                    <td><?php echo $row['tel'] ?></td>
+                    <td>
+                        <center>
+                            <div id=td-color><?php echo $row['luce'] ?>
+                    </td>
+                    <td>
+                        <center>
+                            <div id=td-color2><?php echo $row['gas'] ?>
+                    </td>
+                    <td>
+                        <center>
+                            <div id=td-color3><?php echo $row['luce_gas'] ?>
+                    </td>
+                    <td><?php echo $row['stipula'] ?></td>
+                    <td><?php echo $row['insert_date'] ?></td>
+                    <td><?php echo "<center>";
+                        if ($row['stato'] == "1") {
+                            echo "Inserito";
                         } else {
-                            if ($row['stato'] == "5") {
-                                echo "APPROVATO" . "</tr>";
+                            if ($row['stato'] == "2") {
+                                echo "Lavorazione";
+                            } else {
+                                if ($row['stato'] == "3") {
+                                    echo "Sospeso";
+                                } else {
+                                    if ($row['stato'] == "4") {
+                                        echo "KO";
+                                    } else {
+                                        if ($row['stato'] == "5") {
+                                            echo "APPROVATO";
+                                        }
+                                    }
+                                }
                             }
-                        }
-                    }
-                }
-            }
-        }
-        ?>
+                        } ?></td>
+
+                    <td><?php echo $row['id_delContratto'] ?></td>
+
+                    <td>
+                        <div class="container_statoUP">
+                            <form action="" method="POST" class="login-email" id="formInserimento">
+
+                                <div class="input-group">
+                                    <input type="integer" placeholder="Conferma ID" name="id_delContratto" value="<?php echo $_POST['id_delContratto']; ?>">
+                                </div>
+
+
+
+                                <div class="input-group">
+                                    <!-- <label for="lista-stati">Inserisci stato</label> -->
+                                    <input list="lista-stati-valori" id="lista-stati" name="lista-stati" placeholder="Seleziona Stato" />
+
+                                    <datalist id="lista-stati-valori">
+                                        <option value="1">Inserito
+                                        <option value="2">Lavorazione
+                                        <option value="3">Sospeso
+                                        <option value="4">KO
+                                        <option value="5">APPROVATO
+                                    </datalist>
+                                </div>
+
+
+                                <div class="input-group">
+                                    <button name="submit" class="btn">Aggiorna</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+        <?php      }
+        } ?>
+
+
+
+
         <style type="text/css">
             #td-color {
                 color: white;
@@ -507,57 +506,37 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
         </style>
     </table>
 
+    <script type="text/javascript">
+        function stato_update(value, id_delContratto) {
+            //alert(id_delContratto);
+            //alert(value);
+            let url = "http://localhost/dashboard/asdd/LoginPage_PHP-MySql/contratti_admin.php";
+            window.location.href = url + "?id=" + id_delContratto + "&status=" + value;
+            aggiorna(id_delContratto, value);
+        }
+    </script>
 
-    <div class="container">  
-      <table border="1">  
-           <tr>  
-                <th>Sl. No.</th>  
-                <th>Username</th>  
-                <th>Date Time</th>  
-                <th>Status</th>  
-                <th>Action</th>  
-           </tr>  
-           <?php  
-           $i=1;  
-           if (mysqli_num_rows($sql)>0) {  
-                 while ($row=mysqli_fetch_assoc($sql)) { ?>  
-                 <tr>  
-                      <td><?php echo $i++ ?></td>  
-                      <td><?php echo $row['username'] ?></td>  
-                      <td><?php echo $row['added_on'] ?></td>  
-                      <td>  
-                           <?php  
-                           if ($row['status']==1) {  
-                                echo "Pending";  
-                           }if ($row['status']==2) {  
-                                echo "Accept";  
-                           }if ($row['status']==3) {  
-                                echo "Reject";  
-                           }  
-                           ?>  
-                      </td>  
-                      <td>  
-                           <select onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['id'] ?>')">  
-                                <option value="">Update Status</option>  
-                                <option value="1">Pending</option>  
-                                <option value="2">Accept</option>  
-                                <option value="3">Reject</option>  
-                           </select>  
-                      </td>  
-                 </tr>       
-           <?php      }  
-            } ?>  
-      </table>  
- </div>  
- <script type="text/javascript">  
-      function status_update(value,id){  
-           //alert(id);  
-           let url = "http://127.0.0.1/tutorials/status_update/index.php";  
-           window.location.href= url+"?id="+id+"&status="+value;  
-      }  
- </script>  
+    <script>
+        function aggiorna() {
+            <?php
+            $idCtr = $_POST['id_delContratto'];
+            $stato = $_POST['value'];
 
+            $sql = "UPDATE contratti set stato='$stato' where id_delContratto='$idCtr'";
+            $result = mysqli_query($conn, $sql);
 
+            if ($result) {
+                echo "<script>alert('Lo stato del contratto è stato aggiornato correttamente.')</script>";
+                $_POST['id_delContratto'] = "";
+                $idCtr = "";
+                $_POST['stato'] = "";
+                $stato = "";
+            } else {
+                echo "<script>alert('Lo stato del contratto NON è stato aggiornato correttamente!')</script>";
+            }
+            ?>
+        }
+    </script>
     <!-- </div> -->
     <div class="container">
         <div class="input-group">
