@@ -55,6 +55,7 @@ $giorno = $meseCorrente->format('d');
 $mese = $meseCorrente->format('m');
 $anno = $meseCorrente->format('Y');
 
+
 /* -----------------------------DAL-------------------------------------- */
 $mese_mod = $mese - 1; // es. 8
 
