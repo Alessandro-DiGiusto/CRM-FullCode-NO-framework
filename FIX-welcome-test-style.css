@@ -1,7 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+.container-effic {
+    width: 100%;
+    height: fit-content;
+}
 
+.container-premio {
+    min-height: max-content;
+    background: #21d5fd54;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
 
+#p-month {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    padding: 0rem 3rem 0rem 3rem;
+}
+
+#gradient-table 
+{
+/*     background: rgb(33,212,253);
+    background: linear-gradient(180deg, rgba(33,212,253,1) 0%, rgba(60,219,255,1) 50%, rgba(33,212,253,1) 100%); */
+    background: rgb(0, 132, 161);
+    background: linear-gradient(180deg, rgba(33,212,253,1) 0%, rgb(0, 132, 161) 50%, rgb(0, 132, 161) 100%);
+}
+
+.content-table {
+    display: auto;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    border-collapse: collapse;
+    margin: 1rem;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 30px 30px 20px 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+}
+
+/* .content-table img {
+    opacity: 50%;
+} */
+
+.content-table thead tr {
+    background-color: #21d4fd;
+    color: #FFFFFF;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 6px 7.5px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #21d4fd;
+}
+
+.content-table tbody tr.active-row {
+    font-weight: bold;
+    color:rgb(255, 255, 255);  /* table text color */
+}
 
 .container_statoUP {
     display: flex;
@@ -9,6 +86,13 @@
     align-content: center;
     align-items: center;
     margin: 1rem;
+}
+
+.container-SpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    /* padding: 0rem 3rem 0rem 3rem; */
 }
 
 .container_statoUP .login-text {
@@ -19,6 +103,34 @@
     margin-bottom: 1rem;
     display: block;
     text-transform: capitalize;
+}
+
+.winnerList-container_P {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 1rem;
+    color: #111;
+    font-weight: 500;
+    font-size: auto;
+    text-align: center;
+    margin-bottom: 1rem;
+    display: block;
+    text-transform: capitalize;
+    display: block;
+    width: 70%;
+    padding: 1rem 1rem;
+    text-align: center;
+    border: none;
+    margin-top: 1rem;
+    background: #9bd6fe;
+    outline: none;
+    border-radius: 30px;
+    font-size: 15px;
+    color: #000;
+    cursor: pointer;
+    transition: .3s;
 }
 
 /* .welcome_btn a {
@@ -62,27 +174,41 @@
     animation: AnimationName 12s ease infinite;
 } */
 
-
-.container_statoUP .login-email .input-group .btn {
-    display: block;
-    width: 70%;
-    padding: 1rem 1rem;
-    text-align: center;
-    border: none;
-    margin-top: 1rem;
-    background: #a29bfe;
-    outline: none;
-    border-radius: 30px;
-    font-size: 15px;
-    color: #FFF;
-    cursor: pointer;
-    transition: .3s;
+.bg {
+    background: url("bg.jpg") no-repeat center/cover;
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: calc(100vw + 60px);
+    height: calc(100vw + 60px);
+    z-index: -1;
+    filter: blur(0px);
 }
 
 .container_statoUP .login-email .input-group {
+/*     width: 105%;
+    height: 15px;
+    margin-bottom: 1rem; */
+
+    width: 119px;
+    height: 24px;
+    margin-bottom: 0.3rem;
+}
+
+.container_statoUP .login-email .input-group .btn {
+    display: block;
     width: 100%;
-    height: 25px;
-    margin-bottom: 1rem;
+    padding: 1rem;
+    text-align: center;
+    border: none;
+    /* margin-top: 1rem; */
+    background: #a29bfe;
+    outline: none;
+    border-radius: 30px;
+    font-size: 10px;
+    color: #FFF;
+    cursor: pointer;
+    transition: .3s;
 }
 
 .container_statoUP .login-email .input-group input {
@@ -98,16 +224,21 @@
 }
 
 
-.container_statoUP .login-email .input-group input:focus, .container .login-email .input-group input:valid {
+.container_statoUP .login-email .input-group input:focus,
+.container .login-email .input-group input:valid {
     border-color: #a29bfe;
 }
 
 .container_statoUP .login-email .input-group .btn:hover {
     transform: translateY(-5px);
-    background: #3ce767;      /* 6c5ce7 */
+    background: #3ce767;
+    /* 6c5ce7 */
 }
 
-.container_statoUP .w3-table td, .w3-table th, .w3-table-all td, .w3-table-all th {
+.container_statoUP .w3-table td,
+.w3-table th,
+.w3-table-all td,
+.w3-table-all th {
     padding: 8px 8px;
     display: table-cell;
     text-align: center;
@@ -123,7 +254,7 @@
     box-shadow: 0 0 5px rgb(0 0 0 / 10%);
     padding: 40px 30px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-content: center;
     align-items: center;
     align-self: center;
@@ -139,7 +270,7 @@
     justify-content: center;
     align-content: space-around;
     margin: 1rem;
-/*     padding: 1rem 0rem 0rem 0rem; */
+    /*     padding: 1rem 0rem 0rem 0rem; */
 }
 
 .container .login-text {
@@ -156,7 +287,7 @@
     font-size: 3vw;
     display: flex;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
 }
 
 .logo-jlab {
@@ -220,6 +351,33 @@
     animation: AnimationName 12s ease infinite;
 }
 
+.css-selector-icon {
+    display: flex;
+    /* width: 100%; */
+    padding: 15px 15px;
+    text-align: center;
+    border: none;
+    background: #6c5ce7;
+    outline: none;
+    border-radius: 50%;
+    /* font-size: 1.2rem; */
+    color: #FFF;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    background: linear-gradient(89deg, #20d7a8, #6c5ce7);
+    background-size: 400% 400%;
+
+
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .css-selector_INVERSO {
     display: block;
     width: 100%;
@@ -235,8 +393,44 @@
     transition: .3s;
     margin-top: 1rem;
     text-decoration: none;
-    
+
     background: linear-gradient(89deg, #6c5ce7, #20d7a8);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
+}
+
+.css-selector_Logout {
+    display: flex;
+    /* width: 100%; */
+    padding: 15px 15px;
+    border-radius: 50%;
+    /* font-size: 1.2rem; */
+    margin-top: 1.3rem;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    /* questi sotto sono quelli che c'erano prima*/
+    /*     display: block; */
+    /*     width: 100%; */
+    /*     padding: 15px 20px; */
+    /*     text-align: center; */
+    border: none;
+    background: #6c5ce7;
+    outline: none;
+    /*     border-radius: 30px; */
+    /*     font-size: 1.2rem; */
+    color: #FFF;
+    cursor: pointer;
+    transition: .12s;
+    /*     margin-top: 1rem; */
+    margin-bottom: 1rem;
+    text-decoration: none;
+
+    background: linear-gradient(89deg, #952828, #ff0000);
     background-size: 400% 400%;
 
     -webkit-animation: AnimationName 12s ease infinite;
@@ -244,51 +438,52 @@
     animation: AnimationName 12s ease infinite;
 }
 
-.css-selector_Logout {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    text-align: center;
-    border: none;
-    background: #6c5ce7;
-    outline: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    color: #FFF;
-    cursor: pointer;
-    transition: .3s;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    
-    background: linear-gradient(356deg, #ff6d6d, #ff0000);
-    background-size: 400% 400%;
-
-    -webkit-animation: AnimationName 16s ease infinite;
-    -moz-animation: AnimationName 16s ease infinite;
-    animation: AnimationName 16s ease infinite;
-}
-
 .white-font {
-    color: #e7e7e7 ;
+    color: #e7e7e7;
     text-decoration: none !important;
 }
 
 
 @-webkit-keyframes AnimationName {
-    0%{background-position:0% 58%}
-    50%{background-position:100% 43%}
-    100%{background-position:0% 58%}
+    0% {
+        background-position: 0% 58%
+    }
+
+    50% {
+        background-position: 100% 43%
+    }
+
+    100% {
+        background-position: 0% 58%
+    }
 }
+
 @-moz-keyframes AnimationName {
-    0%{background-position:0% 58%}
-    50%{background-position:100% 43%}
-    100%{background-position:0% 58%}
+    0% {
+        background-position: 0% 58%
+    }
+
+    50% {
+        background-position: 100% 43%
+    }
+
+    100% {
+        background-position: 0% 58%
+    }
 }
+
 @keyframes AnimationName {
-    0%{background-position:0% 58%}
-    50%{background-position:100% 43%}
-    100%{background-position:0% 58%}
+    0% {
+        background-position: 0% 58%
+    }
+
+    50% {
+        background-position: 100% 43%
+    }
+
+    100% {
+        background-position: 0% 58%
+    }
 }
 
 .container .login-email .input-group .btn:hover {
@@ -334,7 +529,8 @@
     transition: .3s;
 }
 
-.container .login-email .input-group input:focus, .container .login-email .input-group input:valid {
+.container .login-email .input-group input:focus,
+.container .login-email .input-group input:valid {
     border-color: #a29bfe;
 }
 
@@ -357,11 +553,11 @@
 
 }
 
-@media (max-width: 488px){
-    .step-wizard-item + .step-wizard-item:after { 
-        content: "" !important; 
+@media (max-width: 488px) {
+    .step-wizard-item+.step-wizard-item:after {
+        content: "" !important;
         position: absolute !important;
-        left: 78px  !important;
+        left: 78px !important;
         top: 19px !important;
         background: #21d4fd !important;
         width: auto !important;
@@ -379,17 +575,20 @@
     .container-header {
         padding: 1rem 0rem 0rem 0rem;
     }
+
     .container {
         width: auto;
-        display:grid;
+        display: grid;
         justify-content: center;
     }
+
     .container .login-social {
         display: block;
     }
+
     .container .login-social a {
         display: block;
-    } 
+    }
 
     .logo-jlab {
         display: block;
@@ -401,7 +600,7 @@
         align-content: center;
     }
 
-    .step-wizard-item + .step-wizard-item:after{
+    .step-wizard-item+.step-wizard-item:after {
         content: "";
         position: absolute;
         left: 77px;
@@ -422,30 +621,31 @@
 /* 
 ------------------------------- */
 * {
-/*     display: inline-table; */
+    /*     display: inline-table; */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
 body {
     width: 100%;
     height: auto;
     background-image: linear-gradient(rgba(230, 230, 230, 0.5), rgba(200, 200, 200, 0.1));
     background-position: center;
     background-size: cover;
-/*     display: flex;
+    /*     display: flex;
     justify-content: center;
     align-items: center; */
     font-family: "Poppins", sans-serif;
 }
 
 .step-wizard {
-/*     background-color: #21d4fd;
+    /*     background-color: #21d4fd;
     background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%); */
     height: auto;
     width: 100%;
-/*     display: flex;
+    /*     display: flex;
     justify-content: center;
     align-items: center; */
 }
@@ -457,6 +657,8 @@ body {
     list-style-type: none;
     border-radius: 20px;
     display: flex;
+    align-content: center;
+    align-items: center;
     padding: 20px 10px;
     position: relative;
     margin: 1rem 3.5rem;
@@ -464,11 +666,11 @@ body {
     flex-wrap: wrap;
 }
 
-.step-wizard-item{
+.step-wizard-item {
     padding: 0 20px;
     flex-basis: 0;
     -webkit-box-flex: 1;
-    -ms-flex-positive:1;
+    -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
     display: flex;
@@ -477,20 +679,22 @@ body {
     min-width: 170px;
     position: relative;
 }
-.step-wizard-item + .step-wizard-item:after{
+
+.step-wizard-item+.step-wizard-item:after {
     content: "";
     position: absolute;
     left: 0;
     top: 19px;
-    background: #21d4fd;
+    background: none;
     width: 100%;
     height: 2px;
     transform: translateX(-50%);
     z-index: -10;
 }
-.progress-count{
+
+.progress-count {
     height: 40px;
-    width:40px;
+    width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -498,10 +702,11 @@ body {
     font-weight: 600;
     margin: 0 auto;
     position: relative;
-    z-index:10;
+    z-index: 10;
     color: transparent;
 }
-.progress-count:after{
+
+.progress-count:after {
     content: "";
     height: 40px;
     width: 40px;
@@ -513,7 +718,8 @@ body {
     border-radius: 50%;
     z-index: -10;
 }
-.progress-count:before{
+
+.progress-count:before {
     content: "";
     height: 10px;
     width: 20px;
@@ -525,26 +731,32 @@ body {
     transform: translate(-50%, -60%) rotate(-45deg);
     transform-origin: center center;
 }
-.progress-label{
+
+.progress-label {
     font-size: 14px;
     font-weight: 600;
     margin-top: 10px;
 }
+
 .current-item .progress-count:before,
-.current-item ~ .step-wizard-item .progress-count:before{
+.current-item~.step-wizard-item .progress-count:before {
     display: none;
 }
-.current-item ~ .step-wizard-item .progress-count:after{
-    height:10px;
-    width:10px;
+
+.current-item~.step-wizard-item .progress-count:after {
+    height: 10px;
+    width: 10px;
 }
-.current-item ~ .step-wizard-item .progress-label{
+
+.current-item~.step-wizard-item .progress-label {
     opacity: 0.5;
 }
-.current-item .progress-count:after{
+
+.current-item .progress-count:after {
     background: #fff;
     border: 2px solid #21d4fd;
 }
-.current-item .progress-count{
+
+.current-item .progress-count {
     color: #21d4fd;
 }

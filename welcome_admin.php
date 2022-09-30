@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
     <div class="header-welcome">
         <?php 
 			$asd = $_SESSION['username'];
-			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
+			echo "<h1>" . $asd . "</h1>"; 
 		?>
 		<div class="input-group">
 			<a href="contratti_admin.php" style="text-decoration: none;">
