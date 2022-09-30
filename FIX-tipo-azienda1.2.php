@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 	$email = ($_POST['email']);
 	$cellulare = ($_POST['tel']);
 	$stipula = ($_POST['stipula']);
-	$stato = "INSERITO";
+	$stato = 1;
 	$agente = ($_SESSION['userID']);
     
     $viaFor = ($_POST['viaFor']);
@@ -33,29 +33,32 @@ if (isset($_POST['submit'])) {
 	$cittaFor_uc = strtoupper($cittaFor);
 	
 	$d = new DateTime(); 
-	$insertDateDB2 = $d->format('H:i:s | \ d-m-Y');
+	$insertDateDB2 = $d->format('d-m-Y | \ H:i:s');
+	$giorno = $d->format('d');
+	$mese = $d->format('m');
+	$anno = $d->format('Y');
 
-        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, gas, valore, business)
-        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x', '$valore', '$business')";
+	$data_inserimento = $anno . $mese . $giorno;
+
+        $sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, gas, valore, business, dati_inserimento)
+        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x', '$valore', '$business', '$data_inserimento');";
 		$result = mysqli_query($conn, $sql);
 
 		if ($result) {
 		echo "<script>alert('Contratto caricato correttamente.')</script>";
-		$_POST['r_sociale'] = "";    	 /* $rSociale = "";  */$rSociale_uc = "";
-		$_POST['iban'] = "";     		 $iban = "";
-		$_POST['email'] = "";   	     $email = "";
-		$_POST['tel'] = "";   	         $cellulare = "";
-		$_POST['stipula'] = "";   	     $stipula = "";
-		$_POST['insert_date'] = "";   	 $insertDate = ""; $insertDateDB2 = "";
-		$_POST['stato'] = "";   	     $stato = "";
-		$_POST['FK_id_users'] = "";   	 $agente = "";
-		$_POST['via_for'] = "";   	     $viaFor = "";
-		$_POST['cap_for'] = "";   	     $capFor = "";
-		$_POST['comune_for'] = "";   	 $comuneFor = "";
-		$_POST['citta_for'] = "";   	 $cittaFor = ""; $cittaFor_uc = "";
 	} else {
 		echo "<script>alert('ERRORE: Il contratto è già stato caricato correttamente ')</script>";
 		}
+
+		$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users, via_for, cap_for, comune_for, citta_for, gas, valore, business, data_inserimento)
+        VALUES ('$rSociale_uc', '$iban', '$email', '$cellulare', '$stipula', '$insertDateDB2', '$stato', '$agente', '$viaFor', '$capFor', '$comuneFor', '$cittaFor_uc', '$x', '$valore', '$business', '$data_inserimento');";
+	$result = mysqli_query($conn, $sql);
+
+	if ($result) {
+		echo "<script>alert('Contratto caricato correttamente.')</script>";
+	} else {
+		echo "<script>alert('ERRORE: Il contratto è già stato caricato correttamente ')</script>";
+	}
 }
 ?>
 
@@ -80,12 +83,12 @@ if (isset($_POST['submit'])) {
         <div class="titolo">
         <?php 
 			$asd = $_SESSION['username'];
-			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
+			echo "<h1>" . $asd . "</h1>"; 
 		?>
         </div>
 
 		<div class="input-group">
-			<a href="contratti2.php" style="text-decoration: none;">
+			<a href="contratti.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
 			</a>
 		</div>
@@ -119,30 +122,50 @@ if (isset($_POST['submit'])) {
                 <span class="progress-label">✔ Completato!</span>
             </li>
         </ul>
-        <div class="container">
-		<form action="" method="POST" class="login-email" id="formInserimento">
+		<div class="container">
+			<form action="" method="POST" class="login-email" id="formInserimento">
 
-		<div class="container">
-		<p class="login-text" style="font-size: 2rem; font-weight: 800;">✔ Fatto!<br>I dati sono stati inseriti correttamente</p>
-		</div>
+				<div class="container">
+					<p class="login-text" style="font-size: 2rem; font-weight: 800;">✔ Fatto!<br>I dati sono stati inseriti correttamente</p>
+				</div>
 
-		<div class="container">
-		    <p class="login-text" style="font-size: 2rem; font-weight: 800;"><?php echo "ciao" . $rSociale ?></p>
-			
-			<input  type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
-		</div>
-		<div class="container">
-			<div class="input-group" style="margin: 3rem">
-				<a href="contratti.php" style="text-decoration: none;"
-				<button name="submit" class="btn">Lista Contratti</button></a>
-			</div>
-			<div class="input-group" style="margin: 3rem">
-				<a href="FIX-tipo.php" style="text-decoration: none; background-color: #21D4FD"
-				<button name="submit" class="btn">Nuovo Contratto</button></a>
-			</div>
-		</div>
-	</form>
-</section>
+				<center>
+					<table class="content-table">
+						<thead>
+							<tr>
+								<th>Ragione Sociale</th>
+								<th>Iban</th>
+								<th>Email</th>
+								<th>Cellulare</th>
+								<th>Stipula</th>
+								<th>Data Inserimento</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="active-row">
+								<td style="color: black"><?php echo $rSociale_uc; ?></td>
+								<td style="color: black"><?php echo $iban; ?></td>
+								<td style="color: black"><?php echo $email; ?></td>
+								<td style="color: black"><?php echo $cellulare; ?></td>
+								<td style="color: black"><?php echo $stipula; ?></td>
+								<td style="color: black"><?php echo $insertDateDB2; ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</center>
+
+				<input type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
+
+				<div class="container">
+					<div class="input-group" style="margin: 3rem">
+						<a href="contratti_admin.php" style="text-decoration: none;" <button name="submit" class="btn">Lista Contratti</button></a>
+					</div>
+					<div class="input-group" style="margin: 3rem">
+						<a href="FIX-tipo.php" style="text-decoration: none; background-color: #21D4FD" <button name="submit" class="btn">Nuovo Contratto</button></a>
+					</div>
+				</div>
+			</form>
+	</section>
 
 </body>
 </html>

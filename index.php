@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
 		if($email === 'silvia@gmail.com'){
 			header("Location: contratti_admin.php");
 		} else {
-			header("Location: contratti2.php");
+			header("Location: contratti.php");
 		}
 
 	} else {
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<title>Login JLAB</title>
+	<title id="hidden-title">Login JLAB</title>
 </head>
 <body>
 	<div class="container">
@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
 			<div class="input-group">
 				<button name="submit" class="btn">Accedi</button>
 			</div>
-
+	
 			<center>
 			<p class="login-register-text">Sei un nuovo agente?<a href="register.php"> Registrati Qui.</a></p>
 			</center>  

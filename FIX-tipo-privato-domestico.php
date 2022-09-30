@@ -67,12 +67,12 @@ if (isset($_POST['submit'])) {
         <div class="titolo">
         <?php 
 			$asd = $_SESSION['username'];
-			echo "<h1>Ciaooo " . $asd . " !</h1>"; 
+			echo "<h1>" . $asd . " !</h1>"; 
 		?>
         </div>
 
 		<div class="input-group">
-			<a href="contratti2.php" style="text-decoration: none;">
+			<a href="contratti.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
 			</a>
 		</div>

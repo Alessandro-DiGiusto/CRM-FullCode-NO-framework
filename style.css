@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+#hidden-title {
+    color: #8c8d8800 !important;
+}
+
+.css-selector_INVERSO {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    border: none;
+    background: #6c5ce7;
+    outline: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    color: #FFF;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 1rem;
+    text-decoration: none;
+
+    background: linear-gradient(89deg, #6c5ce7, #20d7a8);
+    background-size: 400% 400%;
+    transform: translateY(-5px);
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,8 +38,8 @@
 
 body {
     width: 100%;
-    min-height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(bg.jpg);
+    min-height: 97vh;
+    background-image: url(bg5.jpg);
     background-position: center;
     background-size: cover;
     display: flex;
@@ -127,11 +155,40 @@ body {
     color: #FFF;
     cursor: pointer;
     transition: .3s;
+     margin-top: 1rem;
+   /* text-decoration: none; */
+    background: linear-gradient(89deg, #6c5ce7, #20d7a8);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
 }
 
 .container .login-email .input-group .btn:hover {
     transform: translateY(-5px);
     background: #6c5ce7;
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    border: none;
+
+    outline: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    color: #FFF;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 1rem;
+    text-decoration: none;
+
+    background: linear-gradient(89deg, #6c5ce7, #20d7a8);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 0.5s ease infinite;
+    -moz-animation: AnimationName 0.5s ease infinite;
+    animation: AnimationName 0.5s ease infinite;
 }
 
 .login-register-text {

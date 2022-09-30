@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include 'config.php';
 
@@ -7,12 +7,8 @@ error_reporting(0);
 session_start();
 
 if (isset($_SESSION['username'])) {
-    header("Location: index.php");
+	header("Location: index.php");
 }
-
-
-
-
 
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
@@ -20,7 +16,7 @@ if (isset($_POST['submit'])) {
 	$password = md5($_POST['password']);
 	$cpassword = md5($_POST['cpassword']);
 
-/* 	set first uppercase fist letter on username left send on database*/
+	/* 	set first uppercase fist letter on username left send on database*/
 	$username_uc = ucwords($username);
 
 	if ($password == $cpassword) {
@@ -42,7 +38,6 @@ if (isset($_POST['submit'])) {
 		} else {
 			echo "<script>alert('Email gia' esistente! prova ad accedere.')</script>";
 		}
-		
 	} else {
 		echo "<script>alert('Le password inserite non coincidono.')</script>";
 	}
@@ -52,6 +47,7 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,15 +56,16 @@ if (isset($_POST['submit'])) {
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<title>Registrazione JLAB</title>
+	<title id="hidden-title">Registrazione JLAB</title>
 </head>
+
 <body>
 	<div class="container">
 		<form action="" method="POST" class="login-email">
 
 			<img src="jlab-logo-alpha.png" class="logo-jlab">
 
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Registrazione</p>
+			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Registrazione</p>
 			<div class="input-group">
 				<input type="text" placeholder="Username" name="username" value="<?php echo $username; ?>" required>
 			</div>
@@ -78,15 +75,16 @@ if (isset($_POST['submit'])) {
 			</div>
 			<div class="input-group">
 				<input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
-            </div>
-            <div class="input-group">
+			</div>
+			<div class="input-group">
 				<input type="password" placeholder="Conferma Password" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" required>
 			</div>
 			<div class="input-group">
 				<button name="submit" class="btn">Registrati</button>
 			</div>
-			<p class="login-register-text">Sei già un nostro agente? <a href="index.php"> Accedi</a>.</p>
+			<p class="login-register-text">Sei già un nostro agente? <a href="index.php"> Accedi.</a></p>
 		</form>
 	</div>
 </body>
+
 </html>
