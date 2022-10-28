@@ -1,8 +1,3 @@
-var oilCanvas = document.getElementById("oilChart");
-
-Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
-
 var oilData = {
     labels: [
         "Saudi Arabia",
