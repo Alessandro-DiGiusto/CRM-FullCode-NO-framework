@@ -1,16 +1,10 @@
 <?php 
-
 include 'config.php';
-
 error_reporting(0);
-
 session_start();
-
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
-
-/* -------------------------------------- */
 
 if (isset($_POST['submit'])) {
 	$rSociale = $_POST['r_sociale'];
@@ -22,7 +16,7 @@ if (isset($_POST['submit'])) {
 	$stato = "INSERITO";
 	$agente = ($_SESSION['userID']);
 
-	/* 	Set first uppercase on fist letter, on username left send on database*/
+	/* 	Set first upper case on fist letter, on username left send on db*/
 	$rSociale_uc = ucwords($rSociale);
 
 		$sql = "INSERT INTO contratti (r_sociale, iban, email, tel, stipula, insert_date, stato, FK_id_users)
@@ -49,13 +43,6 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!--     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"> -->
-
-    <link rel="stylesheet" type="text/css" href="FIX-welcome-test-style.css">
-<!--     <link rel="stylesheet" type="text/css" href="style.css"> -->
-
     <title>JLAB Office</title>
 </head>
 <body>
@@ -68,7 +55,6 @@ if (isset($_POST['submit'])) {
 			echo "<h1>Ciaooo " . $asd  . " !</h1>"; 
 		?>
         </div>
-
 		<div class="input-group">
 			<a href="contratti2.php" style="text-decoration: none;">
 			<button class="css-selector" class="white-font">Lista contratti</button>
@@ -126,32 +112,5 @@ if (isset($_POST['submit'])) {
 	</div>
 
     </section>
-
-
-<!--     <section class="step-wizard">
-        <ul class="step-wizard-list">
-            <li class="step-wizard-item">
-                <span class="progress-count">1</span>
-                <span class="progress-label">Billing Info</span>
-            </li>
-            <li class="step-wizard-item current-item">
-                <span class="progress-count">2</span>
-                <span class="progress-label">Payment Method</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">3</span>
-                <span class="progress-label">Checkout</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">4</span>
-                <span class="progress-label">alessandro</span>
-            </li>
-            <li class="step-wizard-item">
-                <span class="progress-count">5</span>
-                <span class="progress-label">Success</span>
-            </li>
-        </ul>
-    </section> -->
-
 </body>
 </html>
