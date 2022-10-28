@@ -117,6 +117,22 @@ if (!isset($_SESSION['username'])) {
 				<input type="date" name="stipula" value="<?php echo $_POST['stipula']; ?>" required>
 			</div>
 		</div>
+		
+		        <div class="container">
+		    <p class="login-text" style="font-size: 2rem; font-weight: 800;">Sede Fornitura</p>
+			<div class="input-group">
+				<input type="text" placeholder="Via e numero civico" name="viaFor" value="<?php echo $_POST['viaFor']; ?>" required>
+			</div>
+			<div class="input-group">
+				<input type="number" placeholder="CAP" name="capFor" value="<?php echo $_POST['capFor']; ?>" required>
+            </div>
+			<div class="input-group">
+				<input type="text" placeholder="Comune" name="comuneFor" value="<?php echo $_POST['comuneFor']; ?>" required>
+			</div>
+            <div class="input-group">
+				<input type="text" placeholder="Città" name="cittaFor" value="<?php echo $_POST['cittaFor']; ?>" required>
+			</div>
+        </div>
 
 			<div class="input-group">
 				<button name="submit" class="btn">Carica</button>
