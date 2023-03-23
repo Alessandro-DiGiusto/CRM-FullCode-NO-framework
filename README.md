@@ -1,9 +1,10 @@
 
+
 <div  align="center">
 
-<img  src="https://alessandrodigiusto.it/assets/img/crm_login.png"  alt="crm logo developed by Di Giusto Alessandro" />
+<img  src="https://crm.alessandrodigiusto.it/assets/img/Accedi.png"  alt="crm logo developed by Di Giusto Alessandro" />
 
-<h1><b>Customer Relationship Management</b><br><i>with Entity–relationship model DB<br>latest V. 5.0</h1>
+<h1><b>Customer Relationship Management</b><br><i>with Entity–relationship model DB<br>latest V. 5.0 ✅</h1>
 
 </div>
 
@@ -30,7 +31,8 @@ You can try this project:
 
 </div>
 
-  
+<font color="#7F45ff"> ➡️ Email Demo: demo@ale.it
+<font color="#7F45ff"> ➡️ Password: demo
   
 
 <h2><font  color="#7045ff">Why did I create this management software?</font></h2>The purpose of this crm was designed for thousands of Italian companies that need a simple but <b>special management software niche</b>, designed specifically for companies that manage a network of sales agents, <b>sales networks</b>, of any type and which allow your network to register with the management system and upload files and/or contracts. In this case, for example, this management system was created for the use of agencies that deal with procuring commercial agreements through their sales network of domestic and business electricity supply solutions/contracts, i.e., electricity supply contracts for companies. <br><br>*The functions for uploading documents and photos have been specifically omitted/removed and many others function.<br><br><b>For more information</b>, <i>contact me via the contacts you find on
@@ -43,13 +45,6 @@ You can try this project:
 
 ----------
 
-  
-
-![GitHub all releases](https://img.shields.io/github/downloads/dortania/OpenCore-Legacy-Patcher/total?color=white&style=plastic) ![GitHub top language](https://img.shields.io/github/languages/top/dortania/OpenCore-Legacy-Patcher?color=4B8BBE&style=plastic) ![Discord](https://img.shields.io/discord/417165963327176704?color=7289da&label=discord&style=plastic)
-
-  
-
-----------
 
 <img src="https://crm.alessandrodigiusto.it/assets/img/Generate-Token-feature-alessandrodigiusto.it.png" alt="Generate token features developed by Di Giusto Alessandro">
 
@@ -82,8 +77,8 @@ How generate €uro  token? </font></h1>
 * Calculation of total contracts entered, of the <font  color="#2d800a"><b>Domestic</b></font> type in the current electricity month.
 
 * Calculation of total contracts entered, of <font  color="#2d800a"><b>Business</b></font> type in the current electricity month.
-
-  
+ 
+<img src="https://crm.alessandrodigiusto.it/assets/img/My_Office.png">
 
 <h3><i><font  color="#7045ff">NEW HOT FEATURES</font></i></h3>
 
@@ -119,11 +114,7 @@ to become in "Approved" status to obtain the achievement of the Bonus<i><b>
 
 for the current electric month.</i>
 
-  
-
 <br>
-
-  
 
 * example 1.
 
@@ -251,7 +242,7 @@ il sistema stesso consiglierà all' agente, quanti contratti devono essere inser
 
 di diventare in stato "Approvato" per ottenere il raggiungimento del Bonus
 
-relativo al mese elettrico corrente.
+relativo al mese elettrico di riferimento.
 
   
 
@@ -297,3 +288,10 @@ con le vostre credenziali personali, verrà anche mostrato:
 - Tabella/Classifica Bonus vinti nella rete
 
 - Finestra di ricerca per data dei contratti inseriti nel proprio account
+
+
+----------
+
+
+----------
+
