@@ -32,6 +32,7 @@ You can try this project:
 </div>
 
 <font color="#7F45ff"> ➡️ Email Demo: demo@ale.it
+  <br>
 <font color="#7F45ff"> ➡️ Password: demo
   
 
