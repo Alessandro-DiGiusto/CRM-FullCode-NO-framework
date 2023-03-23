@@ -33,14 +33,22 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    display: grid;
+    display: flex;
+    flex-direction: column;
 }
 
 body {
     width: 100%;
     min-height: 97vh;
-    background-image: url(bg5.jpg);
-    background-position: center;
+    /* background-image: url(bg5new.jpg);
+    background-position: center; */
+    
+    background: rgb(26, 188, 156);
+	background: -moz-linear-gradient(-45deg, rgba(26, 188, 156, 1) 0%, rgba(142, 68, 173, 1) 100%);
+	background: -webkit-linear-gradient(-45deg, rgba(26, 188, 156, 1) 0%, rgba(142, 68, 173, 1) 100%);
+	background: linear-gradient(135deg, rgba(26, 188, 156, 1) 0%, rgba(142, 68, 173, 1) 100%);
+
+    
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -56,6 +64,38 @@ body {
     padding: 40px 30px;
 }
 
+.footer {
+    min-height: max-content;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    align-self: center;
+    margin: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+} 
+
+.footer p a {
+    color: rgba(255, 255, 255, 0.500);
+    text-decoration: none;
+    font-family: 'Poppins';
+    font-size: 13px;
+}
+
+.footer a {
+    /* color: rgba(0, 0, 0, 0.300); */
+    color: rgba(255, 255, 255, 0.500);
+    text-decoration: none;
+    font-family: 'Poppins';
+    font-size: 13px;
+    margin-right: 1rem;
+}
+
+.footer img {
+    width: 4rem;
+    height: fit-content;
+}
+
 .container .login-text {
     color: #111;
     font-weight: 500;
@@ -64,6 +104,11 @@ body {
     margin-bottom: 20px;
     display: block;
     text-transform: capitalize;
+}
+
+html body div.container form.login-email div.input-group button.btn {
+    display: flex;
+    align-items: center;
 }
 
 .container .login-social {
@@ -201,12 +246,12 @@ body {
     color: #6c5ce7;
 }
 
-.logo-jlab {
+.logo-site {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0%;
-    width: 70%;
+    width: 50%;
     align-content: center;
 }
 
@@ -358,4 +403,25 @@ body {
     .container .login-social a {
         display: block;
     }
+}
+
+
+
+.slide1 {
+  background-image: url("https://images.unsplash.com/photo-1675449398638-f2afb260fb1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80");
+}
+
+.slide2 {
+  /*  
+  background-image: url("https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=f21f40bb93bae58300e83f7f72ebb5a5");
+  */
+  background-image: url("https://images.unsplash.com/photo-1676395020221-5f87d7de2498?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1931&q=80");
+}
+
+.slide3 {
+  background-image: url("https://images.unsplash.com/photo-1490100667990-4fced8021649?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=247f52de1a292b8a1877b0c7dd77a291");
+}
+
+.slide4 {
+  background-image: url("https://images.unsplash.com/photo-1494783404829-a93883e74b68?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=413f5f5c41f4db69a1474d92419601ac");
 }

@@ -1,12 +1,15 @@
 <?php
 
 include 'config.php';
+
 error_reporting(0);
+
 session_start();
 
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
+
 
 $idSessione = $_SESSION['userID'];
 
@@ -31,7 +34,6 @@ if (isset($_POST['submit'])) {
         $stato = "APPROVATO";
     }
     if ($result) {
-        echo "<script>alert('Il contratto $idCtr è stato aggiornato correttamente in: $stato')</script>";
         $_POST['id_delContratto'] = NULL;
         $idCtr = NULL;
         $_POST['lista-stati'] = NULL;
@@ -68,28 +70,28 @@ if ($giorno == 15) {
                 $queryUP2 = mysqli_query($conn, $update2);
                 $bkFatto = mysqli_query($conn, "UPDATE `statobk` SET `statoBK`='1' WHERE 1;");
             } else {
-                // non fare niente
             }
         }
     } else {
-        // non fare niente
     }
 }
 
 if ($giorno >= 16) {
     $use_date_F = 16 . "/$mese/$anno";
     $nextMese = $mese + 1;
-    if ($mese == 13) {
-        $mese = "01";
+    $annoL = $anno;
+    if ($nextMese == 13) {
+        $nextMese = "01";
+        $annoL = $anno + 1;
     }
     if (strlen($nextMese) == 1) {   // se il mese è tra 1 al 9, aggiunge uno 0 d'avanti.
         $length = 2;
         $nextMese = str_pad($nextMese, $length, "0", STR_PAD_LEFT);
     }
 
-    $use_date_L = 15 . "/$nextMese/$anno";
+    $use_date_L = 15 . "/$nextMese/$annoL";
     $dalMeseElettrico = $anno . $mese . 16;
-    $alMeseElettrico = $anno . $nextMese . 15;
+    $alMeseElettrico = $annoL . $nextMese . 15;
 } else {
     $mese_mod = $mese - 1; // es. 8
     if (strlen($mese_mod) == 1) {   // se il mese è tra 1 al 9, aggiunge uno 0 d'avanti.
@@ -98,40 +100,60 @@ if ($giorno >= 16) {
     }
 
     $dalMeseElettrico = $anno . $mese_mod . 16;
-    $use_date_F = 16 . "/$mese_mod/$anno";  // Date fixed to show on page
-
-    /* -----------------------------AL--------------------------------------- */
 
     $alMeseElettrico = $anno . $mese . 15;
+
+    $use_date_F = 16 . "/$mese_mod/$anno";  // Date fixed to show on page
+
     $use_date_L = 15 . "/$mese/$anno";  // Date fixed to show on page
 }
 
+if ($_POST['select_Agent'] == NULL) {
+    if ($_POST['selectDal'] == NULL && $_POST['selectAl'] == NULL) {
+        $dal = $dalMeseElettrico;
+        $al = $alMeseElettrico;
+        $selectDal = $use_date_F;
+        $selectAl = $use_date_L;
+    } else {
+        $selectDal = $_POST['selectDal']; // 2022-09-07 
+        $selectAl = $_POST['selectAl'];
+        $dal = str_replace("-", "", $selectDal);   // 20220907 
+        $al = str_replace("-", "", $selectAl);
+    }
+    $select = "SELECT * FROM contratti
+                INNER JOIN users
+                ON contratti.FK_id_users = users.id
+                AND contratti.data_inserimento BETWEEN '$dal' AND '$al'
+                ORDER BY username ASC;";
+    $result_select = mysqli_query($conn, $select);
+    // per stampare eventuali errori
+    if (!$result_select) {
+        echo "Errore query della select" . mysqli_error($conn);
+    }
+} elseif ($_POST['select_Agent'] != NULL) {
+    if ($_POST['selectDal'] == NULL && $_POST['selectAl'] == NULL) {
+        $dal = $dalMeseElettrico;
+        $al = $alMeseElettrico;
+        $selectDal = $use_date_F;
+        $selectAl = $use_date_L;
+    } else {
+        $selectDal = $_POST['selectDal']; // 2022-09-07 
+        $selectAl = $_POST['selectAl'];
+        $dal = str_replace("-", "", $selectDal);   // 20220907 
+        $al = str_replace("-", "", $selectAl);
+    }
+    $select_Agent = $_POST['select_Agent'];
+    $_POST['select_Agent'] = NULL;
+    $select = "SELECT * FROM contratti WHERE contratti.FK_id_users = $select_Agent
+                AND contratti.data_inserimento BETWEEN '$dal' AND '$al'
+                ORDER BY data_inserimento ASC;";
+    $result_select = mysqli_query($conn, $select);
 
-if ($_POST['selectDal'] == NULL && $_POST['selectAl'] == NULL) {
-    $dal = $dalMeseElettrico;
-    $al = $alMeseElettrico;
-    $selectDal = $use_date_F;
-    $selectAl = $use_date_L;
-} else {
-    $selectDal = $_POST['selectDal']; // 2022-09-07 
-    $selectAl = $_POST['selectAl'];
-    $dal = str_replace("-", "", $selectDal);   // 20220907 
-    $al = str_replace("-", "", $selectAl);
+    // per stampare eventuali errori
+    if (!$result_select) {
+        echo "Errore query della select" . mysqli_error($conn);
+    }
 }
-$select = "SELECT * FROM contratti
-            INNER JOIN users
-            ON contratti.FK_id_users = users.id
-            AND contratti.data_inserimento BETWEEN '$dal' AND '$al'
-            ORDER BY username ASC;";
-$result_select = mysqli_query($conn, $select);
-// per stampare eventuali errori
-if (!$result_select) {
-    echo "Errore query della select" . mysqli_error($conn);
-}
-
-/* ---------------------------------------------------------------------------- */
-/* https://www.youtube.com/watch?v=zc1F50TeyIY */
-/* ---------------------------------------------------------------------------- */
 
 /* ----------------------------------- QUERY CONTEGGIO CONTRATTI BUSINESS IN TOTALE ------------- */
 $querySum = "SELECT SUM(business) AS business FROM contratti where domestico = '0' AND contratti.data_inserimento BETWEEN '$dal' AND '$al';";
@@ -185,6 +207,8 @@ $totAppro = mysqli_num_rows($resultInsert);
 /* -----------------------------------  QUERY CONTEGGIO CONTRATTI IN TOTALE ------------- */
 $totContratti = $sumCtrBus + $sumCtrDom;
 $totPunteggio = $totPAV + $totPBV;
+$totPunteggio_SN_mezzo_punto = $totPAV + ($totPBV * 2);
+$totPBV_SN_mezzo_punto = ($totPBV * 2);
 
 /* --------------------------- Logica raggiungimendo obiettivi ------------- */
 function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
@@ -339,32 +363,39 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="FIX-welcome-test-style.css">
+    <script src="https://kit.fontawesome.com/dc134d9183.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="styleOK.css">
     <link rel="stylesheet" href="w3.css">
     <link rel="stylesheet" href="style-circle-bar.css">
 
-    <title>JLAB Office</title>
+    <title>My Office</title>
 </head>
 
 <body>
     <div class="container-header">
         <div class="header-welcome">
-            <img src="jlab-logo-alpha.png" class="logo-jlab">
+            <!-- <img src="img/man-technologist-medium-light-skin-tone.png" class="logo" style="width: 85px;"> -->
             <div class="titolo">
                 <?php
-                $asd = $_SESSION['username'];
-                echo "<h1 style='font-family: Poppins; font-weight: bold'>Pannello di Controllo Amministrativo JLAB</h1>";
+                $nameLogin = $_SESSION['username'];
+                echo "<h1 style='font-family: Poppins; font-weight: bold'>Pannello di Controllo</h1>";
                 ?>
             </div>
 
             <div>
-                <a href="FIX-tipo.php" style="text-decoration: none;">
-                    <button class="css-selector-icon"><img src='iconFornitures/upload-icon2.svg' style='width: 50px; height: 50px'></button>
+                <a href="tipo.php" style="text-decoration: none;">
+                    <button class="css-selector-icon" title="Inserisci un nuovo contratto come Silvia Petralia"><img src='iconFornitures/upload-icon2.svg' style='width: 50px; height: 50px'></button>
+                </a>
+            </div>
+            <div>
+                <a href="" target="_blank" style="text-decoration: none;">
+                    <button class="css-selector_INVERSO" title="Calcolo Penali - Energia Reattiva || It is a DEMO - NOT AVAIABLE"><img src='iconFornitures/contatore.png' style='width: 50px; height: 50px'></button>
                 </a>
             </div>
             <div>
                 <a href="logout.php" style="text-decoration: none;">
-                    <button class="css-selector_Logout"><img src='iconFornitures/logout-icon.svg' style='width: 25px; height: 25px'></button>
+                    <button class="css-selector_Logout" title="Chiudi la Sessione"><img src='iconFornitures/logout-icon.svg' style='width: 25px; height: 25px'></button>
                 </a>
             </div>
         </div>
@@ -373,28 +404,73 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
         <section class="step-wizard">
             <ul class="step-wizard-list">
                 <li class="step-wizard-item current-item">
-                    <span><?php echo $totContratti ?></span>
-                    <span>Totale Contratti</span>
+                    <span><?php if ($totPAV != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPAV; ?></span>
+                            <span>Punti Altri Usi</span>
                 </li>
+                <li class="step-wizard-item">
+                    <span><?php if ($totPBV != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPBV; ?></span>
+                            <span>Punti Domestico</span>
+                </li>
+                <li class="step-wizard-item">
+                    <span><?php if ($totPunteggio != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPunteggio; ?></span>
+                            <span>Punti totale</span>
+                </li>
+                <i class="fa-solid fa-circle-info" title="Dei ''<?php echo $totContratti; ?>'' contratti inseriti, quelli in stato ''APPROVATO'' hanno generato un totale di ''<?php echo $totPunteggio; ?>'' Punti"></i>
+            </ul>
+        </section>
+        <section class="step-wizard">
+            <ul class="step-wizard-list">
+                <li class="step-wizard-item current-item">
+                    <span><?php if ($totPAV != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPAV; ?></span>
+                            <span>Punti Altri Usi</span>
+                </li>
+                <li class="step-wizard-item">
+                    <span><?php if ($totPBV != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPBV_SN_mezzo_punto; ?></span>
+                            <span>Punti Domestico<br>senza ½ punto</span>
+                </li>
+                <li class="step-wizard-item">
+                    <span><?php if ($totPunteggio != 0) {
+                            ?> <span style='font-weight: bold; font-size: 20px'><?php
+                                                                            }
+                                                                            echo $totPunteggio_SN_mezzo_punto; ?></span>
+                            <span>Punti totale<br>senza ½ punto</span>
+                </li>
+                <i class="fa-solid fa-circle-info" title="Il valore visualizzato ''<?php echo $totPunteggio_SN_mezzo_punto; ?>'' rappresenta il totale dei rispettivi punti generati dalla rete senza tenere conto del ''mezzo punto'' dei contratti domestici."></i>
+            </ul>
+        </section>
+
+        <section class="step-wizard">
+            <ul class="step-wizard-list">
                 <li class="step-wizard-item">
                     <span><?php echo $sumCtrBus ?></span>
                     <span>Business</span>
                 </li>
-                <li class="step-wizard-item">
+                <li class="step-wizard-item current-item">
                     <span><?php echo $sumCtrDom ?></span>
                     <span>Domestici</span>
                 </li>
+                <li class="step-wizard-item">
+                    <span><?php echo $totContratti ?></span>
+                    <span>Totale Contratti</span>
+                </li>
+                <i class="fa-solid fa-circle-info" title="Il valore ''<?php echo $totContratti; ?>'' rappresenta il totale dei contratti inseriti nel mese elettrico di riferimento, indipendentemente dal loro stato. "></i>
             </ul>
         </section>
-        <ul class="step-wizard-list">
-            <li class="step-wizard-item">
-                <span><?php conteggio($totPunteggio, $totPAV, $totPBV, $totContratti); ?></span>
-            </li>
-            <!--             <li class="step-wizard-item" id="li-completato">
-                <span></span>
-                <span>l'ape maya</span>
-            </li> -->
-        </ul>
 
         <section class="step-wizard">
             <ul class="step-wizard-list">
@@ -440,24 +516,57 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
     <center>
         <div id="p-month">
             <p>Mese elettrico corrente: <br>Dal <?php echo "$use_date_F"; ?> AL <?php echo "$use_date_L"; ?></p>
-            <p>Stai visualizzando i contratti: <br>Dal <?php echo "$selectDal"; ?> AL <?php echo "$selectAl"; ?></p>
+            <p>Stai visualizzando i contratti: <br>Dal <?php
+                                                        echo $selectDal; ?> AL <?php echo $selectAl; ?></p>
         </div>
-        <table class="content-table">
+
+        <?php function load_stati($conn)
+        { // funzione che verrà richiamata dopo. Stampa le option prelevandole dalla tabella.
+            $cont = "SELECT username, id from users order by username"; // query di estrazione
+            $res = mysqli_query($conn, $cont); // eseguo la query
+            while ($row = mysqli_fetch_array($res)) {
+                echo "<option value='" . $row['id'] . "'>" . $row['username'] . "</option>\n"; // stampa le option della select
+            }
+        }
+        ?>
+
+        <!-- CHIAMATA AJAX -->
+        <script type="text/javascript">
+            $(".select_Agent").change(function() { // '.select_Agent' è la classe associata alla select
+                var country_id = $(this).val(); // 'country_id' è una variabile creata al momento che conterrà l'id della nazione (prelevato dalla tabella e salvato all'interno dell'attributo value della rispettiva <option>, ossia $row['id'])
+                $.ajax({
+                    url: 'contratti_admin.php', // pagina a cui inviare l'id appena prelevato
+                    method: 'POST', // metodo che s'intende utilizzare (nota come il form precedentemente definito non disponga di un metodo)
+                    data: {
+                        countryId: country_id
+                    }, // quando invierò il country_id alla pagina 'prova2.php', potrò prelevarlo attraverso $_POST['countryId']
+                    dataType: "text",
+                    success: function(res) {
+                        $('.stato').html(res); // se il tutto va a buon fine inserisco all'interno del div '.stato' ciò che sputerò fuori dalla pagina 'prova2.php'
+                    }
+                });
+            });
+        </script>
+        <!-- FINE CHIAMATA AJAX -->
+
+        <table class="content-table" id="gradient-table">
             <thead>
                 <tr>
-                    <!-- <th>N° ctr</th> -->
                     <th>Agente</th>
                     <th>Ragione Sociale</th>
+                    <th>Indirizzo</th>
                     <th>Iban</th>
                     <th>Email</th>
                     <th>Cell</th>
-                    <th>Luce</th>
-                    <th>Gas</th>
-                    <th>Luce & Gas</th>
+                    <th>Contratto</th>
+                    <th>Effic.</th>
                     <th>Stipula</th>
                     <th>Data Inserimento</th>
+                    <th>Listino</th>
+                    <th>Consumo Annuo</th>
+                    <th>Gettone</th>
                     <th>Stato</th>
-                    <th>ID contratto</th>
+                    <th>ID Ctr</th>
                     <th class="login-text" style="font-size: 15px; font-weight: 800; display: flex; justify-content: center">Aggiorna Stato</th>
                 </tr>
             </thead>
@@ -468,76 +577,135 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                 while ($row = mysqli_fetch_assoc($result_select)) { ?>
                     <tbody>
                         <tr class="active-row">
+                            <td>
+                                <?php
+                                if ($row['username'] == NULL) {
+                                    if ($row['FK_id_users'] == 1) {
+                                        echo "Alessandro Di Giusto";
+                                    } elseif ($row['FK_id_users'] == 2) {
+                                        echo "Silvia Petralia";
+                                    } elseif ($row['FK_id_users'] == 20) {
+                                        echo "Claudio Ligotti";
+                                    } elseif ($row['FK_id_users'] == 21) {
+                                        echo "Grazia Foti";
+                                    } elseif ($row['FK_id_users'] == 22) {
+                                        echo "Davide Gisabella";
+                                    }
+                                } else {
+                                    echo $row['username'];
+                                }
 
-                            <td style="color: black; bacakground-color: #fff"><?php echo $row['username'] ?></td>
-                            <td style="color: black;"><?php echo $row['r_sociale'] ?></td>
-                            <td style="color: black;"><?php echo $row['iban'] ?></td>
-                            <td style="color: black;"><?php echo $row['email'] ?></td>
-                            <td style="color: black;"><?php echo $row['tel'] ?></td>
-                            <td style="color: black;">
+                                ?>
+                            </td>
+                            <td><?php echo $row['r_sociale'] ?></td>
+                            <td><?php echo $row['via_for'] . "<br>" . $row['cap_for'] . " " .  $row['citta_for']; ?></td>
+                            <td><?php echo $row['iban'] ?></td>
+                            <td><?php echo $row['email'] ?></td>
+                            <td><?php echo $row['tel'] ?></td>
+                            <td>
                                 <center>
                                     <div>
                                         <?php
                                         if ($row['luce'] == "Domestico") {
-                                            echo "<img src='iconFornitures/luce_domestico.svg' style='width: 70px; height: 70px' >";
+                                            echo "<img src='iconFornitures/luce_domestico.svg' style='width: 50px; height: 50px' title='Contratto Domestico LUCE'>";
                                         } elseif ($row['luce'] == "Altri Usi") {
-                                            echo "<img src='iconFornitures/luce_business.svg' style='width: 70px; height: 70px' >";
+                                            echo "<img src='iconFornitures/luce_business.svg' style='width: 50px; height: 50px' title='Contratto LUCE di tipo Business/Altri Usi'>";
                                         } elseif ($row['luce'] == "Privato A") {
-                                            echo "<img src='iconFornitures/privato-altriusi.svg' style='width: 70px; height: 70px' >";
+                                            echo "<img src='iconFornitures/privato-altriusi.svg' style='width: 50px; height: 50px' title='Contratto PRIVATO Altri Usi es: contatore cancello automatico, contatore scala, contatore agricolo...'>";
                                         }
                                         ?>
-                            </td>
-                            <td>
-                                <center>
-                                    <div><?php
-                                            if ($row['gas'] == "Domestico") {
-                                                echo "<img src='iconFornitures/gas_domestico.svg' style='width: 70px; height: 70px' >";
-                                            } elseif ($row['gas'] == "Altri Usi") {
-                                                echo "<img src='iconFornitures/gas_business.svg' style='width: 70px; height: 70px' >";
-                                            }
-                                            ?>
-                            </td>
-                            <td>
-                                <center>
-                                    <div><?php
-                                            if ($row['luce_gas'] == "Domestico") {
-                                                echo "<img src='iconFornitures/luceGas_Dom.svg' style='width: 70px; height: 70px' >";
-                                            } elseif ($row['luce_gas'] == "Altri Usi") {
-                                                echo "<img src='iconFornitures/luceGas_Business.svg' style='width: 70px; height: 70px' >";
-                                            }
-                                            ?>
-                            </td>
-                            <td style="color: black;"><?php echo $row['stipula'] ?></td>
-                            <td style="color: black;"><?php echo $row['insert_date'] ?></td>
-                            <td style="color: black;"><?php echo "<center>";
-                                                        if ($row['stato'] == "1") {
-                                                            echo "Inserito";
-                                                        } else {
-                                                            if ($row['stato'] == "2") {
-                                                                echo "Lavorazione";
-                                                            } else {
-                                                                if ($row['stato'] == "3") {
-                                                                    echo  "Sospeso";
-                                                                } else {
-                                                                    if ($row['stato'] == "4") {
-                                                                        echo "KO";
-                                                                    } else {
-                                                                        if ($row['stato'] == "5") {
-                                                                            echo "<div id=td-color_approved>" . "✔" . "</div>";
-                                                                        }
-                                                                    }
-                                                                }
+
+
+                                        <center>
+                                            <div><?php
+                                                    if ($row['gas'] == "Domestico") {
+                                                        echo "<img src='iconFornitures/gas_domestico.svg' style='width: 50px; height: 50px' title='Contratto Domestico GAS'>";
+                                                    } elseif ($row['gas'] == "Altri Usi") {
+                                                        echo "<img src='iconFornitures/gas_business.svg' style='width: 50px; height: 50px' title='Contratto GAS di tipo Business/Altri Usi'>";
+                                                    }
+                                                    ?>
+
+
+                                                <center>
+                                                    <div><?php
+                                                            if ($row['luce_gas'] == "Domestico") {
+                                                                echo "<img src='iconFornitures/luceGas_Dom.svg' style='width: 50px; height: 50px' title='Contratto Luce&Gas Domestico'>";
+                                                            } elseif ($row['luce_gas'] == "Altri Usi") {
+                                                                echo "<img src='iconFornitures/luceGas_Business.svg' style='width: 50px; height: 50px' title='Contratto Luce&Gas Business/Altri Usi'>";
                                                             }
-                                                        } ?>
+                                                            ?>
+                            </td>
+                            <td>
+                                <center>
+                                    <?php
+                                    if ($row['effic'] == "0") {
+                                        echo "NO";
+                                    } else {
+                                        echo "SI";
+                                    }
+                                    ?><center>
+                            </td>
+                            <td><?php echo $row['stipula'] ?></td>
+                            <td><?php echo $row['insert_date'] ?></td>
+                            <td>
+                                <?php
+                                if ($row['consAnnuoGas'] > 0) {
+                                    if ($row['index_or_pun'] == "0") {
+                                        echo "Index" . "<br>";
+                                    } elseif ($row['index_or_pun'] == "1") {
+                                        echo "PUN" . "<br>";
+                                    }
+                                    if ($row['index_or_pun_gas'] == "0") {
+                                        echo "Index";
+                                    } elseif ($row['index_or_pun_gas'] == "1") {
+                                        echo "PUN";
+                                    }
+                                } else {
+                                    if ($row['index_or_pun'] == "0") {
+                                        echo "Index";
+                                    } elseif ($row['index_or_pun'] == "1") {
+                                        echo "PUN";
+                                    }
+                                }
+                                ?></td>
+                            <td>
+                                <?php
+                                if ($row['consAnnuoGas'] > 0) {
+                                    echo $row['consAnnuo'] . " Luce" . "<br>" . $row['consAnnuoGas'] . " Gas";
+                                } else {
+                                    echo $row['consAnnuo'] . " kWh";
+                                }
+                                ?></td>
+                            <td><?php echo $row['gettone'] . "€" ?></td>
+                            <td><?php echo "<center>";
+                                if ($row['stato'] == "1") {
+                                    echo "Inserito";
+                                } else {
+                                    if ($row['stato'] == "2") {
+                                        echo "Lavorazione";
+                                    } else {
+                                        if ($row['stato'] == "3") {
+                                            echo  "Sospeso";
+                                        } else {
+                                            if ($row['stato'] == "4") {
+                                                echo "KO";
+                                            } else {
+                                                if ($row['stato'] == "5") {
+                                                    echo "<div id=td-color_approved>" . "✔" . "</div>";
+                                                }
+                                            }
+                                        }
+                                    }
+                                } ?>
                             </td>
 
-                            <td style="color: black;"><?php echo $row['id_delContratto'] ?></td>
+                            <td><?php echo $row['id_delContratto'] ?></td>
 
                             <td>
-                                <div class="container_statoUP">
+                                <div class="container_statoUP update_colorfont">
                                     <form action="" method="POST" class="login-email" id="formInserimento">
-                                        <div class="input-group">
-                                            <input type="integer" placeholder="Conferma ID" name="id_delContratto" value="">
+                                        <div class="input-group-ID">
+                                            <input type="hidden" placeholder="Conferma ID" name="id_delContratto" value="<?php echo $row['id_delContratto']; ?>">
                                         </div>
                                         <div class="input-group">
                                             <input list="lista-stati-valori" id="lista-stati" name="lista-stati" placeholder="Scegli Stato" />
@@ -576,7 +744,7 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                     }
 
                     #td-color_approved {
-                        color: #009a58;
+                        color: #FFF;
                         /* background-color: white; */
                         font-size: 25px;
                         font-style: bold;
@@ -594,15 +762,9 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
         </table>
     </center>
 
-    <div class="container-SpaceBetween">
-        <div class="container">
-            <div class="container_statoUP-header">
-                <p class="login-text" style="font-size: 2rem; font-weight: 400;">Alto Valore: <?php echo $totPAV ?></p>
-                <p class="login-text" style="font-size: 2rem; font-weight: 400;">Basso Valore: <?php echo $totPBV ?></p>
-                <p class="login-text" style="font-size: 2rem; font-weight: 400;">Totale Punteggio: <?php echo $totPunteggio ?></p>
-            </div>
-        </div>
 
+
+    <div class="container-SpaceBetween">
         <div class="container">
             <?php                                               // CLONE
             $winner = "SELECT * FROM users
@@ -622,11 +784,12 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                 echo "Errore query della select" . mysqli_error($conn);
             }
             ?>
-            <img src="coppa.png" alt="" style="width:fit-content; height:15rem">
+            <img src="iconFornitures/coppa.png" alt="" style="width:fit-content; height:15rem">
             <table class="w3-table-all w3-center" border="1">
                 <tr style='background-color: #A49BFE; color: white'>
                     <th>Agente</th>
                     <th>Bonus Vinto</th>
+                    <th>Punti</th>
                 </tr>
                 <?php
                 $i = 1;
@@ -635,6 +798,7 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                         <tr>
                             <td><?php echo $row['username'] ?></td>
                             <td><?php echo $row['bonus'] ?></td>
+                            <td><?php echo $row['punti_tot']; ?></td>
                         </tr>
 
                 <?php }
@@ -644,16 +808,28 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                 <p style="padding-left: 1rem">Bonus Vinti <span style='font-weight: bold'>questo</span> mese elettrico</p>
             </div>
         </div>
-        </table>
+
 
         <div class="container">
             <form action="" method="POST" class="login-email" id="formInserimento">
                 <div class="container_statoUP-header">
                     <p class="login-text" style="font-size: 2rem; font-weight: 800;">Ricerca Contratti</p>
+
+                    <div class="input-group">
+                        <select name="select_Agent" id="select_Agent" class="select_Agen44t">
+                            <option value="<?php $_POST['select_Agent'] = NULL; ?>"> Tutti </option>
+                            <option> Scegli Agente </option>
+                            <?php load_stati($conn); ?>
+
+                        </select>
+                    </div>
+
+
                     <div class="input-group">
                         <center>Dal
                             <input type="date" name="selectDal" value="<?php echo $_POST['selectDal']; ?>">
                     </div>
+
                     <div class="input-group">
                         <center>Al
                             <input type="date" name="selectAl" value="<?php echo $_POST['selectAl']; ?>">
@@ -664,16 +840,17 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
                     </div>
                     <div class="input-group">
                         <center><a href="contratti_admin.php" style="text-decoration: none;">
-                                <input type="button" value="Mese Elettrico" class="btn" style="background-color: #58A332; width: 60%;"></a>
+                                <input type="button" value="Mese Elettrico" class="btn" style="background-color: #58A332;   "></a>
                     </div>
                 </div>
             </form>
         </div>
 
     </div>
+
     <div style='display: flex; justify-content: center; align-content: center'>
         <div class="container">
-            <img src="coppa-last.png" alt="" style="width:fit-content; height:10rem">
+            <img src="iconFornitures/coppa-last.png" alt="" style="width:fit-content; height:10rem">
             <table class="w3-table-all w3-center" border="1">
                 <tr style='background-color: #A49BFE; color: white'>
                     <th>Agente</th>
@@ -695,7 +872,62 @@ function conteggio($totPunteggio, $totPAV, $totPBV, $totContratti)
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <?php                                               // CLONE
+        $winner = "SELECT * FROM users
+           /* WHERE bonus != '0' */
+           ORDER BY bonus DESC;";
+
+        $winnerList = mysqli_query($conn, $winner);
+
+        $winnerLast = "SELECT * FROM bonusbackup
+           /* WHERE bonus != '0' */
+           ORDER BY bonus DESC;";
+
+        $winnerListLast = mysqli_query($conn, $winnerLast);
+
+        // per stampare eventuali errori
+        if (!$winnerList) {
+            echo "Errore query della select" . mysqli_error($conn);
+        }
+        ?>
+        <table class="w3-table-all w3-center" border="1">
+            <tr style='background-color: #A49BFE; color: white'>
+                <th>Agente</th>
+                <th>ultimo accesso</th>
+            </tr>
+            <?php
+            $i = 1;
+            if (mysqli_num_rows($winnerList) > 0) {
+                while ($row = mysqli_fetch_assoc($winnerList)) { ?>
+                    <tr>
+                        <td><?php echo $row['username'] ?></td>
+                        <td><?php echo $row['last_login'] ?></td>
+                    </tr>
+
+            <?php }
+            } ?>
+        </table>
+    </div>
+
+
     <input type="hidden" name="id" value="<?php echo $_SESSION['userID']; ?>"> <!-- i am taking the id value corresponding to the agent database row -->
+    <!-- Copyright -->
+    <div class="footer">
+        <center>
+            <img src="https://crm.alessandrodigiusto.it/assets/img/man-technologist-medium-light-skin-tone.png">
+            <p><a href="https://alessandrodigiusto.it" target="_blank">
+                    &lt;/Dev&gt;
+                    with L</a>♥<a href="https://alessandrodigiusto.it" target="_blank">ve: <br>Alessandro Di Giusto</a></p>
+        </center>
+        <center>
+            <p class="copyright"><a href="https://alessandrodigiusto.it/" target="_BLANK"> &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> Copyright All Rights Reserved<br>alessandrodigiusto.it</a></p>
+        </center>
+    </div>
+    <!-- Copyright -->
 </body>
 
 </html>

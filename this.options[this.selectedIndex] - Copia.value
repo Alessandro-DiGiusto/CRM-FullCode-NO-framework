@@ -1,1 +1,0 @@
-this.options[this.selectedIndex].value
