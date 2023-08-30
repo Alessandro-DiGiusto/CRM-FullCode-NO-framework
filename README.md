@@ -296,3 +296,4 @@ con le vostre credenziali personali, verrà anche mostrato:
 
 ----------
 
+![preview img](/preview.png)
